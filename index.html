@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonardo Beranger Gomes // Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#060126;
+    --panel:rgba(3,0,133,0.15);
+    --teal:#1BF2B5;
+    --pink:#F21D92;
+    --purple:#E031EB;
+    --text:#e8e6ff;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;overflow-x:hidden;}
+  ::selection{background:var(--pink);color:var(--bg);}
+  a{color:var(--teal);text-decoration:none;}
+  a:hover{color:var(--pink);}
+  button{font-family:'Orbitron',sans-serif;}
+
+  @keyframes glitchTop{
+    0%{clip-path:inset(0 0 85% 0);transform:translate(0,0);}
+    10%{clip-path:inset(10% 0 60% 0);transform:translate(-2px,0);}
+    20%{clip-path:inset(70% 0 5% 0);transform:translate(2px,0);}
+    30%{clip-path:inset(30% 0 40% 0);transform:translate(-1px,0);}
+    40%{clip-path:inset(5% 0 80% 0);transform:translate(1px,0);}
+    50%{clip-path:inset(0 0 85% 0);transform:translate(0,0);}
+    100%{clip-path:inset(0 0 85% 0);transform:translate(0,0);}
+  }
+  @keyframes glitchBottom{
+    0%{clip-path:inset(85% 0 0 0);transform:translate(0,0);}
+    15%{clip-path:inset(40% 0 20% 0);transform:translate(2px,0);}
+    25%{clip-path:inset(60% 0 10% 0);transform:translate(-2px,0);}
+    35%{clip-path:inset(20% 0 60% 0);transform:translate(1px,0);}
+    45%{clip-path:inset(80% 0 2% 0);transform:translate(-1px,0);}
+    55%{clip-path:inset(85% 0 0 0);transform:translate(0,0);}
+    100%{clip-path:inset(85% 0 0 0);transform:translate(0,0);}
+  }
+  @keyframes blink{0%,49%{opacity:1;}50%,100%{opacity:0;}}
+  @keyframes dashmove{to{stroke-dashoffset:-1000;}}
+  @keyframes scanmove{0%{transform:translateY(-100%);}100%{transform:translateY(100vh);}}
+  @keyframes pulseGlow{0%,100%{opacity:0.55;}50%{opacity:1;}}
+
+  .glitch-title{position:relative;font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(30px,6vw,72px);line-height:1.05;color:var(--text);}
+  .glitch-title::before,.glitch-title::after{content:attr(data-text);position:absolute;inset:0;}
+  .glitch-title::before{color:var(--teal);clip-path:inset(0 0 85% 0);animation:glitchTop 3.5s infinite linear;text-shadow:-2px 0 var(--teal);}
+  .glitch-title::after{color:var(--pink);clip-path:inset(85% 0 0 0);animation:glitchBottom 3.8s infinite linear;text-shadow:2px 0 var(--pink);}
+
+  .bg-gif{position:fixed;inset:0;z-index:0;background:url('Eu_estudio Ghibli cyber punk.gif') center/cover no-repeat;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+  .bg-gif.visible{opacity:1;}
+  .bg-gif::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,1,38,0.72),rgba(6,1,38,0.5) 45%,rgba(6,1,38,0.85));}
+
+  .scanline{position:fixed;left:0;right:0;height:120px;background:linear-gradient(180deg,transparent,rgba(27,242,181,0.06),transparent);pointer-events:none;z-index:39;animation:scanmove 7s linear infinite;}
+  .crt{position:fixed;inset:0;pointer-events:none;z-index:40;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.25) 0px,rgba(0,0,0,0.25) 1px,transparent 1px,transparent 3px);opacity:0.35;}
+
+  header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(6,1,38,0.75);backdrop-filter:blur(10px);border-bottom:1px solid rgba(27,242,181,0.25);}
+  .logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:22px;letter-spacing:1px;color:var(--text);cursor:pointer;background:none;border:none;padding:0;}
+  .logo span{color:var(--teal);}
+  nav{display:flex;gap:8px;}
+  .nav-item{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:1px;padding:9px 16px;cursor:pointer;color:var(--text);background:transparent;border:1px solid rgba(232,230,255,0.15);}
+  .nav-item.active{color:var(--bg);background:linear-gradient(90deg,var(--pink),var(--purple));border:none;}
+
+  main{position:relative;z-index:2;}
+  .page{display:none;}
+  .page.active{display:block;}
+
+  .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:60px 48px 40px;max-width:1100px;margin:0 auto;}
+  .eyebrow{font-family:'Share Tech Mono',monospace;color:var(--teal);font-size:14px;letter-spacing:3px;margin-bottom:18px;opacity:0.85;}
+  .role-line{font-family:'Orbitron',sans-serif;font-weight:600;font-size:clamp(16px,2vw,24px);color:var(--purple);margin-top:20px;letter-spacing:1px;}
+  .tagline{margin-top:32px;font-size:17px;color:rgba(232,230,255,0.75);}
+  .caret{display:inline-block;width:9px;height:18px;background:var(--teal);margin-left:6px;animation:blink 1s step-end infinite;vertical-align:middle;}
+  .cta-row{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap;}
+  .btn-primary{font-weight:700;font-size:14px;letter-spacing:1px;padding:15px 30px;background:linear-gradient(90deg,var(--pink),var(--purple));color:var(--bg);border:none;cursor:pointer;box-shadow:0 0 24px rgba(242,29,146,0.55);}
+  .btn-ghost{font-weight:700;font-size:14px;letter-spacing:1px;padding:15px 30px;background:transparent;color:var(--teal);border:1px solid var(--teal);cursor:pointer;}
+
+  section.block{max-width:1100px;margin:0 auto;padding:40px 48px 80px;border-top:1px solid rgba(232,230,255,0.08);}
+  .sec-title{font-family:'Orbitron',sans-serif;color:var(--teal);font-size:13px;letter-spacing:3px;margin-bottom:14px;}
+  .sec-heading{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);color:var(--text);margin-bottom:8px;}
+  .rule{width:80px;height:3px;background:linear-gradient(90deg,var(--pink),var(--teal));margin-bottom:40px;}
+  .about-text{font-size:18px;line-height:1.7;color:rgba(232,230,255,0.85);max-width:820px;}
+
+  .stack{display:flex;flex-wrap:wrap;gap:14px;}
+  .chip{font-family:'Share Tech Mono',monospace;font-size:14px;padding:10px 20px;border:1px solid rgba(224,49,235,0.4);color:var(--text);background:rgba(224,49,235,0.06);}
+
+  .timeline{display:flex;flex-direction:column;gap:0;}
+  .job{border-left:2px solid rgba(27,242,181,0.35);padding:4px 0 28px 26px;position:relative;}
+  .job::before{content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);}
+  .job-role{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--text);font-weight:700;}
+  .job-company{color:var(--purple);font-size:13px;letter-spacing:1px;margin-top:2px;}
+  .job-period{color:rgba(232,230,255,0.5);font-size:12px;margin-top:4px;}
+  .job-desc{font-size:14px;color:rgba(232,230,255,0.75);line-height:1.6;margin-top:10px;max-width:760px;}
+
+  .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:44px;align-items:start;}
+  @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
+  .status-card{border:1px solid rgba(27,242,181,0.3);background:rgba(3,0,133,0.2);padding:28px;}
+  .status-label{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--teal);letter-spacing:2px;margin-bottom:20px;}
+  .stat-label{font-size:12px;color:rgba(232,230,255,0.55);}
+  .stat-value{font-family:'Orbitron',sans-serif;font-size:22px;color:var(--text);font-weight:700;}
+  .bar-track{height:5px;background:rgba(232,230,255,0.08);position:relative;margin-top:4px;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--pink));animation:pulseGlow 2.4s ease-in-out infinite;}
+  .phil-item{display:flex;gap:12px;font-size:15px;color:rgba(232,230,255,0.8);margin-bottom:12px;}
+  .phil-item span{color:var(--teal);}
+
+  .project-group{margin-bottom:44px;}
+  .project-group-title{font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid rgba(224,49,235,0.25);}
+  .project-empty{grid-column:1/-1;font-size:14px;color:rgba(232,230,255,0.4);border:1px dashed rgba(232,230,255,0.2);padding:20px;text-align:center;}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
+  .project-card{border:1px solid rgba(27,242,181,0.25);background:rgba(3,0,133,0.15);padding:24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,box-shadow .2s;}
+  .project-card:hover{border-color:rgba(242,29,146,0.6);box-shadow:0 0 24px rgba(242,29,146,0.25);}
+  .project-title{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--text);font-weight:700;}
+  .project-desc{font-size:13px;color:rgba(232,230,255,0.7);line-height:1.55;flex-grow:1;}
+  .project-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .project-tag{font-size:11px;padding:4px 10px;border:1px solid rgba(27,242,181,0.4);color:var(--teal);}
+  .project-link{font-size:13px;color:var(--pink);}
+
+  .contact-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:520px;}
+  .contact-card{border:1px solid rgba(224,49,235,0.3);padding:16px 18px;background:rgba(224,49,235,0.05);}
+  .contact-label{font-size:11px;color:var(--purple);letter-spacing:2px;margin-bottom:6px;}
+  .contact-value{font-size:15px;color:var(--text);}
+
+  footer{border-top:1px solid rgba(232,230,255,0.08);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;font-size:12px;color:rgba(232,230,255,0.4);flex-wrap:wrap;gap:10px;}
+  .status-online{color:var(--teal);}
+
+  @media (max-width:700px){
+    header{padding:14px 20px;}
+    nav{gap:4px;}
+    .nav-item{padding:8px 10px;font-size:11px;}
+    .hero, section.block, main{padding-left:20px;padding-right:20px;}
+    footer{padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-gif" id="bg-gif"></div>
+<div class="crt"></div>
+<div class="scanline"></div>
+
+<svg style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.25;" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+  <path d="M0,120 L400,120 L440,160 L900,160 L940,200 L1920,200" fill="none" stroke="#1BF2B5" stroke-width="1.5" stroke-dasharray="8 10" style="animation:dashmove 20s linear infinite;"></path>
+  <path d="M0,900 L300,900 L340,860 L800,860 L840,820 L1920,820" fill="none" stroke="#F21D92" stroke-width="1.5" stroke-dasharray="8 10" style="animation:dashmove 24s linear infinite;"></path>
+  <path d="M1920,500 L1500,500 L1460,540 L1100,540 L1060,580 L500,580" fill="none" stroke="#E031EB" stroke-width="1" stroke-dasharray="4 8" style="animation:dashmove 18s linear infinite;"></path>
+</svg>
+
+<header>
+  <button class="logo" onclick="goTo('home')">LEO<span>://</span></button>
+  <nav id="nav"></nav>
+</header>
+
+<main>
+
+  <div class="page" data-page="home">
+    <section class="hero">
+      <div class="eyebrow">// PORTFOLIO.INIT</div>
+      <div class="glitch-title" data-text="LEONARDO BERANGER GOMES">LEONARDO BERANGER GOMES</div>
+      <div class="role-line">Engenheiro de Controle e Automação · Engenheiro de Dados</div>
+      <div class="tagline"><span style="color:var(--teal);">&gt;</span>&nbsp;transformando dados em insights estratégicos<span class="caret"></span></div>
+      <div class="cta-row">
+        <button class="btn-primary" onclick="goTo('experience')">VER EXPERIÊNCIA</button>
+        <button class="btn-ghost" onclick="goTo('contact')">CONTATO</button>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-title">01 // SOBRE</div>
+      <p class="about-text">Formado em Engenharia de Controle e Automação pelo Centro Universitário FEI, migrei da automação industrial para a área de dados ao descobrir paixão por transformar processos e informações em decisões inteligentes. Hoje atuo como <b style="color:var(--text);">Analista de Dados Sênior</b>, com certificação <b style="color:var(--text);">Green Belt Lean Six Sigma</b> e domínio de <b style="color:var(--text);">Python, SQL, Power BI e Tableau</b> para desenvolver KPIs, dashboards e análises que orientam o crescimento do negócio.</p>
+      <div style="margin-top:18px;display:inline-block;color:var(--pink);font-size:14px;letter-spacing:1px;cursor:pointer;border-bottom:1px solid var(--pink);padding-bottom:2px;" onclick="goTo('about')">saiba mais →</div>
+    </section>
+
+    <section class="block">
+      <div class="sec-title">02 // STACK</div>
+      <div class="stack" id="stack-home"></div>
+    </section>
+
+    <section class="block" style="padding-bottom:100px;">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;">
+        <div class="sec-title" style="margin-bottom:0;">03 // TRAJETÓRIA EM DESTAQUE</div>
+        <div style="color:var(--pink);font-size:13px;cursor:pointer;" onclick="goTo('experience')">ver tudo →</div>
+      </div>
+      <div class="timeline" id="timeline-home"></div>
+    </section>
+  </div>
+
+  <div class="page" data-page="experience">
+    <section class="block" style="border-top:none;padding-top:60px;">
+      <div class="eyebrow">// EXPERIENCIA.LISTAR</div>
+      <div class="sec-heading">EXPERIÊNCIA</div>
+      <div class="rule"></div>
+      <div class="timeline" id="timeline-full"></div>
+    </section>
+  </div>
+
+  <div class="page" data-page="projects">
+    <section class="block" style="border-top:none;padding-top:60px;">
+      <div class="eyebrow">// PROJETOS.LISTAR</div>
+      <div class="sec-heading">PROJETOS</div>
+      <div class="rule"></div>
+      <div class="projects-grid" id="projects-full"></div>
+    </section>
+  </div>
+
+  <div class="page" data-page="about">
+    <section class="block" style="border-top:none;padding-top:60px;">
+      <div class="eyebrow">// PERFIL.EXIBIR</div>
+      <div class="sec-heading">SOBRE MIM</div>
+      <div class="rule"></div>
+
+      <div class="about-grid">
+        <div>
+          <p class="about-text" style="font-size:17px;">Engenheiro de Controle e Automação (Centro Universitário FEI, 2018–2022) que encontrou na área de dados um novo propósito profissional. Comecei com um curso técnico em automação industrial, atuei em automação de supermercados e eficiência energética, e migrei para análise de dados aplicando os mesmos princípios de rigor e melhoria contínua da engenharia.</p>
+          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 12px;">DIFERENCIAL</div>
+          <p class="about-text">Resiliência diante de retrabalho e liderança técnica: fui promovido para dar continuidade a uma área estratégica após reestruturá-la sozinho, aplicando Lean Six Sigma, automação com Python e dashboards em Power BI com foco em resultados sustentáveis.</p>
+          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 16px;">FILOSOFIA DE TRABALHO</div>
+          <div id="philosophy"></div>
+        </div>
+
+        <div class="status-card">
+          <div class="status-label">SYSTEM.STATUS</div>
+          <div style="display:flex;flex-direction:column;gap:20px;">
+            <div>
+              <div class="stat-label">EXPERIÊNCIA</div>
+              <div class="stat-value" id="exp-duration"></div>
+            </div>
+            <div>
+              <div class="stat-label">CERTIFICAÇÃO</div>
+              <div class="stat-value">Green Belt Lean Six Sigma</div>
+            </div>
+            <div>
+              <div class="stat-label">IDIOMAS</div>
+              <div class="stat-value" style="font-size:16px;">Inglês (intermediário) · Espanhol (intermediário)</div>
+            </div>
+            <div style="border-top:1px solid rgba(232,230,255,0.1);padding-top:18px;">
+              <div class="stat-label" style="margin-bottom:10px;">PROFICIÊNCIA</div>
+              <div id="proficiency"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="page" data-page="contact">
+    <section class="block" style="border-top:none;padding-top:60px;">
+      <div class="eyebrow">// CONTATO.CONECTAR</div>
+      <div class="sec-heading">VAMOS CONVERSAR</div>
+      <div class="rule"></div>
+      <div class="contact-grid" id="contacts"></div>
+    </section>
+  </div>
+
+</main>
+
+<footer>
+  <div>© 2026 LEONARDO BERANGER GOMES</div>
+  <div class="status-online">SYSTEM ONLINE</div>
+</footer>
+
+<script>
+  const NAV = [
+    { id: 'home', label: 'HOME' },
+    { id: 'experience', label: 'EXPERIÊNCIA' },
+    { id: 'projects', label: 'PROJETOS' },
+    { id: 'about', label: 'SOBRE' },
+    { id: 'contact', label: 'CONTATO' },
+  ];
+
+  const PROJECT_CATEGORIES = ['Data Science', 'Power BI', 'Python', 'HTML'];
+
+  const PROJECTS = [
+    { title: 'Energy-Prediction', category: 'Data Science', desc: 'Dataset e modelagem preditiva do consumo energético horário de um supermercado em Curitiba (2024–2025), para estudos de eficiência energética e impacto climático.', tags: ['Python', 'Jupyter', 'Séries Temporais'], url: 'https://github.com/leonardo-beranger/Energy-Prediction' },
+    { title: 'Projeto-Spotfy', category: 'Data Science', desc: 'Clusterização de 953 músicas do Spotify com K-Means para sugerir novas playlists a um app de streaming fictício, a partir de BPM, energia e dançabilidade.', tags: ['Python', 'Machine Learning', 'K-Means'], url: 'https://github.com/leonardo-beranger/Projeto-Spotfy' },
+    { title: 'Premier-League', category: 'Data Science', desc: 'Dados históricos da Premier League (1993/94–2024/25) e modelo de machine learning para prever o resultado das partidas.', tags: ['Python', 'Machine Learning', 'Dados Esportivos'], url: 'https://github.com/leonardo-beranger/Premier-League' },
+    { title: 'email_relatorio', category: 'Python', desc: 'Scripts em Python que extraem dados de um banco, tratam as informações e geram um relatório em PDF enviado automaticamente por e-mail.', tags: ['Python', 'ETL', 'Automação'], url: 'https://github.com/leonardo-beranger/email_relatorio' },
+    { title: 'envio_de_email', category: 'Python', desc: 'Função em Python para envio automático de e-mails integrada ao Google, usada como bloco de automação em outros projetos.', tags: ['Python', 'Automação'], url: 'https://github.com/leonardo-beranger/envio_de_email' },
+    { title: 'ferramentas', category: 'Python', desc: 'Conjunto de ferramentas básicas em Python para consolidar informações e enriquecer dados para análise.', tags: ['Python', 'Utilitários'], url: 'https://github.com/leonardo-beranger/ferramentas' },
+    { title: 'catholic-day', category: 'HTML', desc: 'Site estático de apologética e formação católica, gerado por um script Python enxuto (~150 linhas, só biblioteca padrão) — sem Node, sem npm, sem dependências.', tags: ['HTML', 'Python', 'Site Estático'], url: 'https://github.com/leonardo-beranger/catholic-day' },
+  ];
+
+  const SKILLS = ['Python', 'SQL', 'Power BI', 'Tableau', 'Lean Six Sigma', 'HTML & CSS'];
+
+  const JOBS = [
+    { role: 'Analista de Dados', company: 'Cirion Technologies', period: 'fevereiro de 2025 – atual (1 ano 5 meses)', desc: 'Analista de Dados Sênior focado no desenvolvimento de KPIs e análise de resultados.' },
+    { role: 'Analista de Dados', company: 'act digital', period: 'novembro de 2024 – fevereiro de 2025 (4 meses)', desc: 'Atuação em análise de dados durante transição de carreira para o setor de tecnologia.' },
+    { role: 'Analista de Monitoramento Pleno', company: 'Grupo Luminae Energia', period: 'janeiro de 2024 – novembro de 2024 (11 meses)', desc: 'Promovido para dar continuidade à área com nova estrutura e equipe. Atuou como referência técnica, apoiando novos colaboradores na manutenção de processos e no aprimoramento contínuo das soluções, com foco em eficiência, escalabilidade e resultados sustentáveis.' },
+    { role: 'Analista de Monitoramento Jr', company: 'Grupo Luminae Energia', period: 'junho de 2022 – janeiro de 2024 (1 ano 8 meses)', desc: 'Reestruturou uma área estratégica atuando sozinho por meses. Aplicou princípios Lean 6 Sigma, automatizou tarefas com Python e desenvolveu dashboards e análises avançadas em Power BI integrando múltiplas fontes de dados, com apresentações focadas no cliente.' },
+    { role: 'Estagiário de Engenharia', company: 'Grupo Luminae Energia', period: 'março de 2021 – junho de 2022 (1 ano 4 meses)', desc: 'Início da trajetória profissional na área de automação de supermercados e eficiência energética.' },
+  ];
+
+  const PHILOSOPHY = [
+    { title: 'Resiliência', desc: 'lido bem com retrabalho e mudanças de escopo sem perder o foco na entrega.' },
+    { title: 'Liderança Técnica', desc: 'apoio e oriento colegas na manutenção e evolução de processos e soluções.' },
+    { title: 'Melhoria Contínua', desc: 'aplico Lean Six Sigma para elevar eficiência, qualidade e escalabilidade.' },
+    { title: 'Comunicação Clara', desc: 'traduzo complexidade técnica em insights compreensíveis para o negócio.' },
+  ];
+
+  const EXPERIENCE_START = new Date(2021, 2, 1); // março de 2021 — início do estágio de engenharia
+
+  function calcExperienceDuration(start, now = new Date()) {
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    if (now.getDate() < start.getDate()) months -= 1;
+    if (months < 0) { years -= 1; months += 12; }
+    const y = years > 0 ? `${years} ${years === 1 ? 'ano' : 'anos'}` : '';
+    const m = months > 0 ? `${months} ${months === 1 ? 'mês' : 'meses'}` : '';
+    return [y, m].filter(Boolean).join(' ') || '0 meses';
+  }
+
+  const PROFICIENCY = [
+    { name: 'SQL', pct: 90 },
+    { name: 'Python', pct: 85 },
+    { name: 'Power BI', pct: 85 },
+    { name: 'Tableau', pct: 70 },
+  ];
+
+  const CONTACTS = [
+    { label: 'EMAIL', value: 'leonardoberangergomes@gmail.com', href: 'mailto:leonardoberangergomes@gmail.com' },
+    { label: 'LINKEDIN', value: 'linkedin.com/in/leonardo-beranger-gomes-a7160a1a0', href: 'https://www.linkedin.com/in/leonardo-beranger-gomes-a7160a1a0' },
+    { label: 'GITHUB', value: 'github.com/leonardo-beranger', href: 'https://github.com/leonardo-beranger' },
+  ];
+
+  function renderNav(active) {
+    const nav = document.getElementById('nav');
+    nav.innerHTML = '';
+    NAV.forEach(n => {
+      const btn = document.createElement('button');
+      btn.className = 'nav-item' + (n.id === active ? ' active' : '');
+      btn.textContent = n.label;
+      btn.onclick = () => goTo(n.id);
+      nav.appendChild(btn);
+    });
+  }
+
+  function renderChips(container, list) {
+    container.innerHTML = '';
+    list.forEach(s => {
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = s;
+      container.appendChild(chip);
+    });
+  }
+
+  function renderJob(job) {
+    const div = document.createElement('div');
+    div.className = 'job';
+    div.innerHTML = `
+      <div class="job-role">${job.role}</div>
+      <div class="job-company">${job.company}</div>
+      <div class="job-period">${job.period}</div>
+      <div class="job-desc">${job.desc}</div>
+    `;
+    return div;
+  }
+
+  function renderTimeline(container, jobs) {
+    container.innerHTML = '';
+    jobs.forEach(j => container.appendChild(renderJob(j)));
+  }
+
+  function renderPhilosophy() {
+    const container = document.getElementById('philosophy');
+    container.innerHTML = '';
+    PHILOSOPHY.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'phil-item';
+      div.innerHTML = `<span>▸</span><div><b style="color:var(--text);">${item.title}</b> — ${item.desc}</div>`;
+      container.appendChild(div);
+    });
+  }
+
+  function renderProficiency() {
+    const container = document.getElementById('proficiency');
+    container.innerHTML = '';
+    PROFICIENCY.forEach(pr => {
+      const wrap = document.createElement('div');
+      wrap.style.marginBottom = '10px';
+      wrap.innerHTML = `
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:rgba(232,230,255,0.75);margin-bottom:4px;"><span>${pr.name}</span><span>${pr.pct}%</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:${pr.pct}%;"></div></div>
+      `;
+      container.appendChild(wrap);
+    });
+  }
+
+  function renderProjects(container, categories, list) {
+    container.innerHTML = '';
+    categories.forEach(cat => {
+      const items = list.filter(p => p.category === cat);
+      const group = document.createElement('div');
+      group.className = 'project-group';
+      const heading = document.createElement('div');
+      heading.className = 'project-group-title';
+      heading.textContent = cat;
+      group.appendChild(heading);
+
+      const grid = document.createElement('div');
+      grid.className = 'projects-grid';
+
+      if (items.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'project-empty';
+        empty.textContent = 'Em breve.';
+        grid.appendChild(empty);
+      } else {
+        items.forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'project-card';
+          card.innerHTML = `
+            <div class="project-title">${p.title}</div>
+            <div class="project-desc">${p.desc}</div>
+            <div class="project-tags">${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}</div>
+            <a class="project-link" href="${p.url}" target="_blank" rel="noopener">ver no GitHub →</a>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      group.appendChild(grid);
+      container.appendChild(group);
+    });
+  }
+
+  function renderContacts() {
+    const container = document.getElementById('contacts');
+    container.innerHTML = '';
+    CONTACTS.forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'contact-card';
+      div.innerHTML = `
+        <div class="contact-label">${c.label}</div>
+        <div class="contact-value"><a href="${c.href}" target="${c.href.startsWith('http') ? '_blank' : '_self'}" rel="noopener">${c.value}</a></div>
+      `;
+      container.appendChild(div);
+    });
+  }
+
+  const BG_GIF_PAGES = ['home', 'contact'];
+
+  function goTo(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.dataset.page === page));
+    renderNav(page);
+    document.getElementById('bg-gif').classList.toggle('visible', BG_GIF_PAGES.includes(page));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    history.replaceState(null, '', '#' + page);
+  }
+
+  renderChips(document.getElementById('stack-home'), SKILLS);
+  renderTimeline(document.getElementById('timeline-home'), JOBS.slice(0, 3));
+  renderTimeline(document.getElementById('timeline-full'), JOBS);
+  renderProjects(document.getElementById('projects-full'), PROJECT_CATEGORIES, PROJECTS);
+  document.getElementById('exp-duration').textContent = calcExperienceDuration(EXPERIENCE_START);
+  renderPhilosophy();
+  renderProficiency();
+  renderContacts();
+
+  const initial = (location.hash || '#home').slice(1);
+  goTo(NAV.some(n => n.id === initial) ? initial : 'home');
+</script>
+
+</body>
+</html>
