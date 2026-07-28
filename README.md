@@ -4,7 +4,7 @@ Portfólio pessoal em estética cyberpunk, construído como uma única página (
 
 ## Sobre
 
-Engenheiro de Controle e Automação (Centro Universitário FEI) que migrou para a área de dados. Atua como Analista de Dados Sênior, com certificação Green Belt Lean Six Sigma e domínio de Python, SQL, Power BI e Tableau.
+- Descrição do profissional
 
 ## Estrutura do site
 
@@ -16,12 +16,8 @@ Engenheiro de Controle e Automação (Centro Universitário FEI) que migrou para
 
 ## Tecnologias
 
-- HTML5 / CSS3 (custom properties, animações via `@keyframes`)
-- JavaScript vanilla (SPA por troca de estado, sem dependências)
-- Fontes: [Orbitron](https://fonts.google.com/specimen/Orbitron) e [Share Tech Mono](https://fonts.google.com/specimen/Share+Tech+Mono)
+- Principais tecnologias utilizadas pelo profissional
 
 ## Contato
 
-- **E-mail:** leonardoberangergomes@gmail.com
-- **LinkedIn:** [linkedin.com/in/leonardo-beranger-gomes-a7160a1a0](https://www.linkedin.com/in/leonardo-beranger-gomes-a7160a1a0)
-- **GitHub:** [github.com/leonardo-beranger](https://github.com/leonardo-beranger)
+- Contatos possíveis para o profissional
