@@ -2,8 +2,6 @@
 
 Portfólio pessoal em estética cyberpunk, construído como uma única página (SPA) em HTML, CSS e JavaScript puros — sem frameworks ou build step.
 
-🔗 **Site:** abra o [`index.html`](index.html) diretamente no navegador.
-
 ## Sobre
 
 Engenheiro de Controle e Automação (Centro Universitário FEI) que migrou para a área de dados. Atua como Analista de Dados Sênior, com certificação Green Belt Lean Six Sigma e domínio de Python, SQL, Power BI e Tableau.
