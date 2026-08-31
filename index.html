@@ -64,6 +64,13 @@
   .nav-item{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:1px;padding:9px 16px;cursor:pointer;color:var(--text);background:transparent;border:1px solid rgba(232,230,255,0.15);}
   .nav-item.active{color:var(--bg);background:linear-gradient(90deg,var(--pink),var(--purple));border:none;}
 
+  .header-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:flex-end;}
+  .lang-switch{display:flex;align-items:center;gap:0;border:1px solid rgba(27,242,181,0.35);}
+  .lang-item{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1px;padding:8px 10px;cursor:pointer;color:rgba(232,230,255,0.6);background:transparent;border:none;border-right:1px solid rgba(27,242,181,0.2);}
+  .lang-item:last-child{border-right:none;}
+  .lang-item:hover{color:var(--teal);}
+  .lang-item.active{color:var(--bg);background:var(--teal);font-weight:700;}
+
   main{position:relative;z-index:2;}
   .page{display:none;}
   .page.active{display:block;}
@@ -126,9 +133,13 @@
   .status-online{color:var(--teal);}
 
   @media (max-width:700px){
-    header{padding:14px 20px;}
-    nav{gap:4px;}
-    .nav-item{padding:8px 10px;font-size:11px;}
+    header{padding:14px 20px;flex-wrap:wrap;gap:10px;}
+    nav{gap:4px;overflow-x:auto;max-width:100%;scrollbar-width:none;}
+    nav::-webkit-scrollbar{display:none;}
+    .nav-item{padding:8px 10px;font-size:11px;flex:0 0 auto;}
+    .header-right{gap:8px;width:100%;justify-content:space-between;flex-wrap:nowrap;}
+    .lang-switch{flex:0 0 auto;}
+    .lang-item{padding:6px 7px;font-size:11px;}
     .hero, section.block, main{padding-left:20px;padding-right:20px;}
     footer{padding:20px;}
   }
@@ -148,7 +159,10 @@
 
 <header>
   <button class="logo" onclick="goTo('home')">LEO<span>://</span></button>
-  <nav id="nav"></nav>
+  <div class="header-right">
+    <nav id="nav"></nav>
+    <div class="lang-switch" id="lang-switch" role="group" aria-label="Language"></div>
+  </div>
 </header>
 
 <main>
@@ -157,30 +171,30 @@
     <section class="hero">
       <div class="eyebrow">// PORTFOLIO.INIT</div>
       <div class="glitch-title" data-text="LEONARDO BERANGER GOMES">LEONARDO BERANGER GOMES</div>
-      <div class="role-line">Engenheiro de Controle e Automação · Engenheiro de Dados</div>
-      <div class="tagline"><span style="color:var(--teal);">&gt;</span>&nbsp;transformando dados em insights estratégicos<span class="caret"></span></div>
-      <div style="margin-top:10px;font-size:13px;color:rgba(232,230,255,0.5);">// este site foi criado por mim, Leonardo Beranger Gomes</div>
+      <div class="role-line" data-i18n="roleLine">Engenheiro de Controle e Automação · Engenheiro de Dados</div>
+      <div class="tagline"><span style="color:var(--teal);">&gt;</span>&nbsp;<span data-i18n="tagline">transformando dados em insights estratégicos</span><span class="caret"></span></div>
+      <div style="margin-top:10px;font-size:13px;color:rgba(232,230,255,0.5);" data-i18n="siteBy">// este site foi criado por mim, Leonardo Beranger Gomes</div>
       <div class="cta-row">
-        <button class="btn-primary" onclick="goTo('experience')">VER EXPERIÊNCIA</button>
-        <button class="btn-ghost" onclick="goTo('contact')">CONTATO</button>
+        <button class="btn-primary" onclick="goTo('experience')" data-i18n="ctaExperience">VER EXPERIÊNCIA</button>
+        <button class="btn-ghost" onclick="goTo('contact')" data-i18n="ctaContact">CONTATO</button>
       </div>
     </section>
 
     <section class="block">
-      <div class="sec-title">01 // SOBRE</div>
-      <p class="about-text">Formado em Engenharia de Controle e Automação pelo Centro Universitário FEI, migrei da automação industrial para a área de dados ao descobrir paixão por transformar processos e informações em decisões inteligentes. Hoje atuo como <b style="color:var(--text);">Analista de Dados Sênior</b>, com certificação <b style="color:var(--text);">Green Belt Lean Six Sigma</b> e domínio de <b style="color:var(--text);">Python, SQL, Power BI e Tableau</b> para desenvolver KPIs, dashboards e análises que orientam o crescimento do negócio.</p>
-      <div style="margin-top:18px;display:inline-block;color:var(--pink);font-size:14px;letter-spacing:1px;cursor:pointer;border-bottom:1px solid var(--pink);padding-bottom:2px;" onclick="goTo('about')">saiba mais →</div>
+      <div class="sec-title" data-i18n="secAbout">01 // SOBRE</div>
+      <p class="about-text" data-i18n-html="aboutHome">Formado em Engenharia de Controle e Automação pelo Centro Universitário FEI, migrei da automação industrial para a área de dados ao descobrir paixão por transformar processos e informações em decisões inteligentes. Hoje atuo como <b style="color:var(--text);">Analista de Dados Sênior</b>, com certificação <b style="color:var(--text);">Green Belt Lean Six Sigma</b> e domínio de <b style="color:var(--text);">Python, SQL, Power BI e Tableau</b> para desenvolver KPIs, dashboards e análises que orientam o crescimento do negócio.</p>
+      <div style="margin-top:18px;display:inline-block;color:var(--pink);font-size:14px;letter-spacing:1px;cursor:pointer;border-bottom:1px solid var(--pink);padding-bottom:2px;" onclick="goTo('about')" data-i18n="knowMore">saiba mais →</div>
     </section>
 
     <section class="block">
-      <div class="sec-title">02 // STACK</div>
+      <div class="sec-title" data-i18n="secStack">02 // STACK</div>
       <div class="stack" id="stack-home"></div>
     </section>
 
     <section class="block" style="padding-bottom:100px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;">
-        <div class="sec-title" style="margin-bottom:0;">03 // TRAJETÓRIA EM DESTAQUE</div>
-        <div style="color:var(--pink);font-size:13px;cursor:pointer;" onclick="goTo('experience')">ver tudo →</div>
+        <div class="sec-title" style="margin-bottom:0;" data-i18n="secTrajectory">03 // TRAJETÓRIA EM DESTAQUE</div>
+        <div style="color:var(--pink);font-size:13px;cursor:pointer;" onclick="goTo('experience')" data-i18n="seeAll">ver tudo →</div>
       </div>
       <div class="timeline" id="timeline-home"></div>
     </section>
@@ -188,8 +202,8 @@
 
   <div class="page" data-page="experience">
     <section class="block" style="border-top:none;padding-top:60px;">
-      <div class="eyebrow">// EXPERIENCIA.LISTAR</div>
-      <div class="sec-heading">EXPERIÊNCIA</div>
+      <div class="eyebrow" data-i18n="eyebrowExperience">// EXPERIENCIA.LISTAR</div>
+      <div class="sec-heading" data-i18n="headExperience">EXPERIÊNCIA</div>
       <div class="rule"></div>
       <div class="timeline" id="timeline-full"></div>
     </section>
@@ -197,8 +211,8 @@
 
   <div class="page" data-page="projects">
     <section class="block" style="border-top:none;padding-top:60px;">
-      <div class="eyebrow">// PROJETOS.LISTAR</div>
-      <div class="sec-heading">PROJETOS</div>
+      <div class="eyebrow" data-i18n="eyebrowProjects">// PROJETOS.LISTAR</div>
+      <div class="sec-heading" data-i18n="headProjects">PROJETOS</div>
       <div class="rule"></div>
       <div class="projects-grid" id="projects-full"></div>
     </section>
@@ -206,16 +220,16 @@
 
   <div class="page" data-page="about">
     <section class="block" style="border-top:none;padding-top:60px;">
-      <div class="eyebrow">// PERFIL.EXIBIR</div>
-      <div class="sec-heading">SOBRE MIM</div>
+      <div class="eyebrow" data-i18n="eyebrowProfile">// PERFIL.EXIBIR</div>
+      <div class="sec-heading" data-i18n="headAbout">SOBRE MIM</div>
       <div class="rule"></div>
 
       <div class="about-grid">
         <div>
-          <p class="about-text" style="font-size:17px;">Engenheiro de Controle e Automação (Centro Universitário FEI, 2018–2022) que encontrou na área de dados um novo propósito profissional. Comecei com um curso técnico em automação industrial, atuei em automação de supermercados e eficiência energética, e migrei para análise de dados aplicando os mesmos princípios de rigor e melhoria contínua da engenharia.</p>
-          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 12px;">DIFERENCIAL</div>
-          <p class="about-text">Resiliência diante de retrabalho e liderança técnica: fui promovido para dar continuidade a uma área estratégica após reestruturá-la sozinho, aplicando Lean Six Sigma, automação com Python e dashboards em Power BI com foco em resultados sustentáveis.</p>
-          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 16px;">FILOSOFIA DE TRABALHO</div>
+          <p class="about-text" style="font-size:17px;" data-i18n="aboutLong">Engenheiro de Controle e Automação (Centro Universitário FEI, 2018–2022) que encontrou na área de dados um novo propósito profissional. Comecei com um curso técnico em automação industrial, atuei em automação de supermercados e eficiência energética, e migrei para análise de dados aplicando os mesmos princípios de rigor e melhoria contínua da engenharia.</p>
+          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 12px;" data-i18n="labelEdge">DIFERENCIAL</div>
+          <p class="about-text" data-i18n="edgeText">Resiliência diante de retrabalho e liderança técnica: fui promovido para dar continuidade a uma área estratégica após reestruturá-la sozinho, aplicando Lean Six Sigma, automação com Python e dashboards em Power BI com foco em resultados sustentáveis.</p>
+          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 16px;" data-i18n="labelPhilosophy">FILOSOFIA DE TRABALHO</div>
           <div id="philosophy"></div>
         </div>
 
@@ -223,19 +237,19 @@
           <div class="status-label">SYSTEM.STATUS</div>
           <div style="display:flex;flex-direction:column;gap:20px;">
             <div>
-              <div class="stat-label">EXPERIÊNCIA</div>
+              <div class="stat-label" data-i18n="statExperience">EXPERIÊNCIA</div>
               <div class="stat-value" id="exp-duration"></div>
             </div>
             <div>
-              <div class="stat-label">CERTIFICAÇÃO</div>
+              <div class="stat-label" data-i18n="statCertification">CERTIFICAÇÃO</div>
               <div class="stat-value">Green Belt Lean Six Sigma</div>
             </div>
             <div>
-              <div class="stat-label">IDIOMAS</div>
-              <div class="stat-value" style="font-size:16px;">Inglês (intermediário) · Espanhol (intermediário)</div>
+              <div class="stat-label" data-i18n="statLanguages">IDIOMAS</div>
+              <div class="stat-value" style="font-size:16px;" data-i18n="languagesValue">Inglês (intermediário) · Espanhol (intermediário)</div>
             </div>
             <div style="border-top:1px solid rgba(232,230,255,0.1);padding-top:18px;">
-              <div class="stat-label" style="margin-bottom:10px;">PROFICIÊNCIA</div>
+              <div class="stat-label" style="margin-bottom:10px;" data-i18n="statProficiency">PROFICIÊNCIA</div>
               <div id="proficiency"></div>
             </div>
           </div>
@@ -246,8 +260,8 @@
 
   <div class="page" data-page="contact">
     <section class="block" style="border-top:none;padding-top:60px;">
-      <div class="eyebrow">// CONTATO.CONECTAR</div>
-      <div class="sec-heading">VAMOS CONVERSAR</div>
+      <div class="eyebrow" data-i18n="eyebrowContact">// CONTATO.CONECTAR</div>
+      <div class="sec-heading" data-i18n="headContact">VAMOS CONVERSAR</div>
       <div class="rule"></div>
       <div class="contact-grid" id="contacts"></div>
     </section>
@@ -261,44 +275,195 @@
 </footer>
 
 <script>
+  // ---------------------------------------------------------------------------
+  // i18n — pt (padrão), en, es
+  // Textos traduzíveis são objetos { pt, en, es }; L() resolve pelo idioma ativo.
+  // ---------------------------------------------------------------------------
+  const LANGS = ['pt', 'en', 'es'];
+  const DEFAULT_LANG = 'pt';
+  let LANG = DEFAULT_LANG;
+
+  const L = v => (v && typeof v === 'object' && !Array.isArray(v)) ? (v[LANG] ?? v[DEFAULT_LANG]) : v;
+
+  const UI = {
+    htmlLang:          { pt: 'pt-BR', en: 'en', es: 'es' },
+    pageTitle:         { pt: 'Leonardo Beranger Gomes // Portfólio', en: 'Leonardo Beranger Gomes // Portfolio', es: 'Leonardo Beranger Gomes // Portafolio' },
+
+    roleLine:          { pt: 'Engenheiro de Controle e Automação · Engenheiro de Dados', en: 'Control & Automation Engineer · Data Engineer', es: 'Ingeniero de Control y Automatización · Ingeniero de Datos' },
+    tagline:           { pt: 'transformando dados em insights estratégicos', en: 'turning data into strategic insight', es: 'convirtiendo datos en decisiones estratégicas' },
+    siteBy:            { pt: '// este site foi criado por mim, Leonardo Beranger Gomes', en: '// this site was built by me, Leonardo Beranger Gomes', es: '// este sitio fue creado por mí, Leonardo Beranger Gomes' },
+    ctaExperience:     { pt: 'VER EXPERIÊNCIA', en: 'VIEW EXPERIENCE', es: 'VER EXPERIENCIA' },
+    ctaContact:        { pt: 'CONTATO', en: 'CONTACT', es: 'CONTACTO' },
+
+    secAbout:          { pt: '01 // SOBRE', en: '01 // ABOUT', es: '01 // SOBRE MÍ' },
+    secStack:          { pt: '02 // STACK', en: '02 // STACK', es: '02 // STACK' },
+    secTrajectory:     { pt: '03 // TRAJETÓRIA EM DESTAQUE', en: '03 // CAREER HIGHLIGHTS', es: '03 // TRAYECTORIA DESTACADA' },
+    knowMore:          { pt: 'saiba mais →', en: 'read more →', es: 'saber más →' },
+    seeAll:            { pt: 'ver tudo →', en: 'see all →', es: 'ver todo →' },
+
+    aboutHome: {
+      pt: 'Formado em Engenharia de Controle e Automação pelo Centro Universitário FEI, migrei da automação industrial para a área de dados ao descobrir paixão por transformar processos e informações em decisões inteligentes. Hoje atuo como <b style="color:var(--text);">Analista de Dados Sênior</b>, com certificação <b style="color:var(--text);">Green Belt Lean Six Sigma</b> e domínio de <b style="color:var(--text);">Python, SQL, Power BI e Tableau</b> para desenvolver KPIs, dashboards e análises que orientam o crescimento do negócio.',
+      en: 'I hold a degree in Control and Automation Engineering from Centro Universitário FEI. I moved from industrial automation to data after finding that turning processes and information into smart decisions was what I enjoyed most. Today I work as a <b style="color:var(--text);">Senior Data Analyst</b>, certified <b style="color:var(--text);">Green Belt Lean Six Sigma</b>, using <b style="color:var(--text);">Python, SQL, Power BI and Tableau</b> to build KPIs, dashboards and analyses that guide business growth.',
+      es: 'Soy Ingeniero de Control y Automatización por el Centro Universitário FEI. Pasé de la automatización industrial al área de datos al descubrir que transformar procesos e información en decisiones inteligentes era lo que más me gustaba. Hoy trabajo como <b style="color:var(--text);">Analista de Datos Sénior</b>, con certificación <b style="color:var(--text);">Green Belt Lean Six Sigma</b>, usando <b style="color:var(--text);">Python, SQL, Power BI y Tableau</b> para crear KPIs, dashboards y análisis que orientan el crecimiento del negocio.'
+    },
+
+    eyebrowExperience: { pt: '// EXPERIENCIA.LISTAR', en: '// EXPERIENCE.LIST', es: '// EXPERIENCIA.LISTAR' },
+    headExperience:    { pt: 'EXPERIÊNCIA', en: 'EXPERIENCE', es: 'EXPERIENCIA' },
+    eyebrowProjects:   { pt: '// PROJETOS.LISTAR', en: '// PROJECTS.LIST', es: '// PROYECTOS.LISTAR' },
+    headProjects:      { pt: 'PROJETOS', en: 'PROJECTS', es: 'PROYECTOS' },
+    eyebrowProfile:    { pt: '// PERFIL.EXIBIR', en: '// PROFILE.SHOW', es: '// PERFIL.MOSTRAR' },
+    headAbout:         { pt: 'SOBRE MIM', en: 'ABOUT ME', es: 'SOBRE MÍ' },
+    eyebrowContact:    { pt: '// CONTATO.CONECTAR', en: '// CONTACT.CONNECT', es: '// CONTACTO.CONECTAR' },
+    headContact:       { pt: 'VAMOS CONVERSAR', en: "LET'S TALK", es: 'HABLEMOS' },
+
+    aboutLong: {
+      pt: 'Engenheiro de Controle e Automação (Centro Universitário FEI, 2018–2022) que encontrou na área de dados um novo propósito profissional. Comecei com um curso técnico em automação industrial, atuei em automação de supermercados e eficiência energética, e migrei para análise de dados aplicando os mesmos princípios de rigor e melhoria contínua da engenharia.',
+      en: 'Control and Automation Engineer (Centro Universitário FEI, 2018–2022) who found a new professional purpose in data. I started with a technical course in industrial automation, worked on supermarket automation and energy efficiency, and moved into data analysis applying the same engineering principles of rigor and continuous improvement.',
+      es: 'Ingeniero de Control y Automatización (Centro Universitário FEI, 2018–2022) que encontró un nuevo propósito profesional en el área de datos. Empecé con un curso técnico en automatización industrial, trabajé en automatización de supermercados y eficiencia energética, y pasé al análisis de datos aplicando los mismos principios de rigor y mejora continua de la ingeniería.'
+    },
+    labelEdge:         { pt: 'DIFERENCIAL', en: 'WHAT SETS ME APART', es: 'DIFERENCIAL' },
+    edgeText: {
+      pt: 'Resiliência diante de retrabalho e liderança técnica: fui promovido para dar continuidade a uma área estratégica após reestruturá-la sozinho, aplicando Lean Six Sigma, automação com Python e dashboards em Power BI com foco em resultados sustentáveis.',
+      en: 'Resilience under rework and technical leadership: I was promoted to keep leading a strategic area after restructuring it on my own, applying Lean Six Sigma, Python automation and Power BI dashboards focused on sustainable results.',
+      es: 'Resiliencia ante el retrabajo y liderazgo técnico: fui promovido para dar continuidad a un área estratégica tras reestructurarla solo, aplicando Lean Six Sigma, automatización con Python y dashboards en Power BI enfocados en resultados sostenibles.'
+    },
+    labelPhilosophy:   { pt: 'FILOSOFIA DE TRABALHO', en: 'HOW I WORK', es: 'FILOSOFÍA DE TRABAJO' },
+
+    statExperience:    { pt: 'EXPERIÊNCIA', en: 'EXPERIENCE', es: 'EXPERIENCIA' },
+    statCertification: { pt: 'CERTIFICAÇÃO', en: 'CERTIFICATION', es: 'CERTIFICACIÓN' },
+    statLanguages:     { pt: 'IDIOMAS', en: 'LANGUAGES', es: 'IDIOMAS' },
+    languagesValue:    { pt: 'Português (nativo) · Inglês (intermediário) · Espanhol (intermediário)', en: 'Portuguese (native) · English (intermediate) · Spanish (intermediate)', es: 'Portugués (nativo) · Inglés (intermedio) · Español (intermedio)' },
+    statProficiency:   { pt: 'PROFICIÊNCIA', en: 'PROFICIENCY', es: 'DOMINIO' },
+
+    projectLink:       { pt: 'ver no GitHub →', en: 'view on GitHub →', es: 'ver en GitHub →' },
+    projectEmpty:      { pt: 'Em breve.', en: 'Coming soon.', es: 'Próximamente.' },
+
+    durYear:           { pt: 'ano', en: 'year', es: 'año' },
+    durYears:          { pt: 'anos', en: 'years', es: 'años' },
+    durMonth:          { pt: 'mês', en: 'month', es: 'mes' },
+    durMonths:         { pt: 'meses', en: 'months', es: 'meses' },
+    durZero:           { pt: '0 meses', en: '0 months', es: '0 meses' },
+  };
+
+  const t = key => L(UI[key]);
+
   const NAV = [
-    { id: 'home', label: 'HOME' },
-    { id: 'experience', label: 'EXPERIÊNCIA' },
-    { id: 'projects', label: 'PROJETOS' },
-    { id: 'about', label: 'SOBRE' },
-    { id: 'contact', label: 'CONTATO' },
+    { id: 'home',       label: { pt: 'HOME',        en: 'HOME',       es: 'INICIO' } },
+    { id: 'experience', label: { pt: 'EXPERIÊNCIA', en: 'EXPERIENCE', es: 'EXPERIENCIA' } },
+    { id: 'projects',   label: { pt: 'PROJETOS',    en: 'PROJECTS',   es: 'PROYECTOS' } },
+    { id: 'about',      label: { pt: 'SOBRE',       en: 'ABOUT',      es: 'SOBRE MÍ' } },
+    { id: 'contact',    label: { pt: 'CONTATO',     en: 'CONTACT',    es: 'CONTACTO' } },
   ];
 
   const PROJECT_CATEGORIES = ['Data Science', 'Power BI', 'Python', 'HTML', 'IA'];
 
+  // Rótulo exibido por categoria. Só traduz o que muda de idioma; o resto é o próprio id.
+  const CATEGORY_LABELS = { 'IA': { pt: 'IA', en: 'AI', es: 'IA' } };
+  const categoryLabel = cat => CATEGORY_LABELS[cat] ? L(CATEGORY_LABELS[cat]) : cat;
+
+  const TAG = {
+    timeSeries:  { pt: 'Séries Temporais', en: 'Time Series',      es: 'Series Temporales' },
+    sportsData:  { pt: 'Dados Esportivos', en: 'Sports Data',      es: 'Datos Deportivos' },
+    automation:  { pt: 'Automação',        en: 'Automation',       es: 'Automatización' },
+    utils:       { pt: 'Utilitários',      en: 'Utilities',        es: 'Utilidades' },
+    staticSite:  { pt: 'Site Estático',    en: 'Static Site',      es: 'Sitio Estático' },
+  };
+
   const PROJECTS = [
-    { title: 'Energy-Prediction', category: 'Data Science', desc: 'Dataset e modelagem preditiva do consumo energético horário de um supermercado em Curitiba (2024–2025), para estudos de eficiência energética e impacto climático.', tags: ['Python', 'Jupyter', 'Séries Temporais'], url: 'https://github.com/leonardo-beranger/Energy-Prediction' },
-    { title: 'Projeto-Spotfy', category: 'Data Science', desc: 'Clusterização de 953 músicas do Spotify com K-Means para sugerir novas playlists a um app de streaming fictício, a partir de BPM, energia e dançabilidade.', tags: ['Python', 'Machine Learning', 'K-Means'], url: 'https://github.com/leonardo-beranger/Projeto-Spotfy' },
-    { title: 'Premier-League', category: 'Data Science', desc: 'Dados históricos da Premier League (1993/94–2024/25) e modelo de machine learning para prever o resultado das partidas.', tags: ['Python', 'Machine Learning', 'Dados Esportivos'], url: 'https://github.com/leonardo-beranger/Premier-League' },
-    { title: 'gerenciar_workspace_power_bi', category: 'Power BI', desc: 'Interface em Python (Streamlit) para administrar workspaces e reports do Power BI via Power BI REST API — listagem de workspaces, reports e datasources, status de atualização e exportação em massa para Excel.', tags: ['Power BI', 'Python', 'Streamlit', 'REST API'], url: 'https://github.com/leonardo-beranger/gerenciar_workspace_power_bi' },
-    { title: 'email_relatorio', category: 'Python', desc: 'Scripts em Python que extraem dados de um banco, tratam as informações e geram um relatório em PDF enviado automaticamente por e-mail.', tags: ['Python', 'ETL', 'Automação'], url: 'https://github.com/leonardo-beranger/email_relatorio' },
-    { title: 'envio_de_email', category: 'Python', desc: 'Função em Python para envio automático de e-mails integrada ao Google, usada como bloco de automação em outros projetos.', tags: ['Python', 'Automação'], url: 'https://github.com/leonardo-beranger/envio_de_email' },
-    { title: 'ferramentas', category: 'Python', desc: 'Conjunto de ferramentas básicas em Python para consolidar informações e enriquecer dados para análise.', tags: ['Python', 'Utilitários'], url: 'https://github.com/leonardo-beranger/ferramentas' },
-    { title: 'catholic-day', category: 'HTML', desc: 'Site estático de apologética e formação católica, gerado por um script Python enxuto (~150 linhas, só biblioteca padrão) — sem Node, sem npm, sem dependências.', tags: ['HTML', 'Python', 'Site Estático'], url: 'https://github.com/leonardo-beranger/catholic-day' },
-    { title: 'portfolio', category: 'HTML', desc: 'Este site: portfólio pessoal em estética cyberpunk, construído como SPA em HTML, CSS e JavaScript puros, sem frameworks ou build step.', tags: ['HTML', 'CSS', 'JavaScript'], url: 'https://github.com/leonardo-beranger/portfolio' },
-    { title: 'linkedin-aux', category: 'IA', desc: 'Skill do Claude Code que escreve posts, cases técnicos, carrosséis e artigos de LinkedIn a partir de um banco de projetos estruturado no formato problema → gargalo → solução → ganho, com checklist de anonimização e rotina de pauta.', tags: ['Claude Code', 'Skill', 'Prompt Engineering', 'Markdown'], url: 'https://github.com/leonardo-beranger/linkedin-aux' },
+    { title: 'Energy-Prediction', category: 'Data Science', tags: ['Python', 'Jupyter', TAG.timeSeries], url: 'https://github.com/leonardo-beranger/Energy-Prediction', desc: {
+      pt: 'Dataset e modelagem preditiva do consumo energético horário de um supermercado em Curitiba (2024–2025), para estudos de eficiência energética e impacto climático.',
+      en: 'Dataset and predictive model for the hourly energy consumption of a supermarket in Curitiba, Brazil (2024–2025), for energy efficiency and climate impact studies.',
+      es: 'Dataset y modelo predictivo del consumo energético por hora de un supermercado en Curitiba, Brasil (2024–2025), para estudios de eficiencia energética e impacto climático.' } },
+    { title: 'Projeto-Spotfy', category: 'Data Science', tags: ['Python', 'Machine Learning', 'K-Means'], url: 'https://github.com/leonardo-beranger/Projeto-Spotfy', desc: {
+      pt: 'Clusterização de 953 músicas do Spotify com K-Means para sugerir novas playlists a um app de streaming fictício, a partir de BPM, energia e dançabilidade.',
+      en: 'K-Means clustering of 953 Spotify tracks to suggest new playlists for a fictional streaming app, based on BPM, energy and danceability.',
+      es: 'Clusterización de 953 canciones de Spotify con K-Means para sugerir nuevas playlists a una app de streaming ficticia, a partir de BPM, energía y bailabilidad.' } },
+    { title: 'Premier-League', category: 'Data Science', tags: ['Python', 'Machine Learning', TAG.sportsData], url: 'https://github.com/leonardo-beranger/Premier-League', desc: {
+      pt: 'Dados históricos da Premier League (1993/94–2024/25) e modelo de machine learning para prever o resultado das partidas.',
+      en: 'Historical Premier League data (1993/94–2024/25) and a machine learning model to predict match results.',
+      es: 'Datos históricos de la Premier League (1993/94–2024/25) y modelo de machine learning para predecir el resultado de los partidos.' } },
+    { title: 'gerenciar_workspace_power_bi', category: 'Power BI', tags: ['Power BI', 'Python', 'Streamlit', 'REST API'], url: 'https://github.com/leonardo-beranger/gerenciar_workspace_power_bi', desc: {
+      pt: 'Interface em Python (Streamlit) para administrar workspaces e reports do Power BI via Power BI REST API — listagem de workspaces, reports e datasources, status de atualização e exportação em massa para Excel.',
+      en: 'Python (Streamlit) interface to manage Power BI workspaces and reports through the Power BI REST API — listing workspaces, reports and datasources, refresh status and bulk export to Excel.',
+      es: 'Interfaz en Python (Streamlit) para administrar workspaces y reports de Power BI mediante la Power BI REST API — listado de workspaces, reports y datasources, estado de actualización y exportación masiva a Excel.' } },
+    { title: 'email_relatorio', category: 'Python', tags: ['Python', 'ETL', TAG.automation], url: 'https://github.com/leonardo-beranger/email_relatorio', desc: {
+      pt: 'Scripts em Python que extraem dados de um banco, tratam as informações e geram um relatório em PDF enviado automaticamente por e-mail.',
+      en: 'Python scripts that pull data from a database, clean it and generate a PDF report sent automatically by email.',
+      es: 'Scripts en Python que extraen datos de una base, tratan la información y generan un informe en PDF enviado automáticamente por correo.' } },
+    { title: 'envio_de_email', category: 'Python', tags: ['Python', TAG.automation], url: 'https://github.com/leonardo-beranger/envio_de_email', desc: {
+      pt: 'Função em Python para envio automático de e-mails integrada ao Google, usada como bloco de automação em outros projetos.',
+      en: 'Python function for automatic email sending integrated with Google, used as an automation building block in other projects.',
+      es: 'Función en Python para envío automático de correos integrada con Google, usada como bloque de automatización en otros proyectos.' } },
+    { title: 'ferramentas', category: 'Python', tags: ['Python', TAG.utils], url: 'https://github.com/leonardo-beranger/ferramentas', desc: {
+      pt: 'Conjunto de ferramentas básicas em Python para consolidar informações e enriquecer dados para análise.',
+      en: 'A set of basic Python tools to consolidate information and enrich data for analysis.',
+      es: 'Conjunto de herramientas básicas en Python para consolidar información y enriquecer datos para análisis.' } },
+    { title: 'catholic-day', category: 'HTML', tags: ['HTML', 'Python', TAG.staticSite], url: 'https://github.com/leonardo-beranger/catholic-day', desc: {
+      pt: 'Site estático de apologética e formação católica, gerado por um script Python enxuto (~150 linhas, só biblioteca padrão) — sem Node, sem npm, sem dependências.',
+      en: 'Static site on Catholic apologetics and formation, generated by a lean Python script (~150 lines, standard library only) — no Node, no npm, no dependencies.',
+      es: 'Sitio estático de apologética y formación católica, generado por un script Python compacto (~150 líneas, solo biblioteca estándar) — sin Node, sin npm, sin dependencias.' } },
+    { title: 'portfolio', category: 'HTML', tags: ['HTML', 'CSS', 'JavaScript'], url: 'https://github.com/leonardo-beranger/portfolio', desc: {
+      pt: 'Este site: portfólio pessoal em estética cyberpunk, construído como SPA em HTML, CSS e JavaScript puros, sem frameworks ou build step.',
+      en: 'This site: a personal portfolio with a cyberpunk look, built as a SPA in plain HTML, CSS and JavaScript, with no frameworks or build step.',
+      es: 'Este sitio: portafolio personal con estética cyberpunk, construido como SPA en HTML, CSS y JavaScript puros, sin frameworks ni build step.' } },
+    { title: 'linkedin-aux', category: 'IA', tags: ['Claude Code', 'Skill', 'Prompt Engineering', 'Markdown'], url: 'https://github.com/leonardo-beranger/linkedin-aux', desc: {
+      pt: 'Skill do Claude Code que escreve posts, cases técnicos, carrosséis e artigos de LinkedIn a partir de um banco de projetos estruturado no formato problema → gargalo → solução → ganho, com checklist de anonimização e rotina de pauta.',
+      en: 'Claude Code skill that writes LinkedIn posts, technical case studies, carousels and articles from a structured project bank in the format problem → bottleneck → solution → gain, with an anonymization checklist and a content routine.',
+      es: 'Skill de Claude Code que escribe posts, casos técnicos, carruseles y artículos de LinkedIn a partir de un banco de proyectos estructurado en el formato problema → cuello de botella → solución → ganancia, con checklist de anonimización y rutina de contenido.' } },
   ];
 
   const SKILLS = ['Python', 'SQL', 'Power BI', 'Tableau', 'Lean Six Sigma', 'HTML & CSS'];
 
   const JOBS = [
-    { role: 'Analista de Dados', company: 'Cirion Technologies', period: 'fevereiro de 2025 – atual (1 ano 5 meses)', desc: 'Analista de Dados Sênior focado no desenvolvimento de KPIs e análise de resultados.' },
-    { role: 'Analista de Dados', company: 'act digital', period: 'novembro de 2024 – fevereiro de 2025 (4 meses)', desc: 'Atuação em análise de dados durante transição de carreira para o setor de tecnologia.' },
-    { role: 'Analista de Monitoramento Pleno', company: 'Grupo Luminae Energia', period: 'janeiro de 2024 – novembro de 2024 (11 meses)', desc: 'Promovido para dar continuidade à área com nova estrutura e equipe. Atuou como referência técnica, apoiando novos colaboradores na manutenção de processos e no aprimoramento contínuo das soluções, com foco em eficiência, escalabilidade e resultados sustentáveis.' },
-    { role: 'Analista de Monitoramento Jr', company: 'Grupo Luminae Energia', period: 'junho de 2022 – janeiro de 2024 (1 ano 8 meses)', desc: 'Reestruturou uma área estratégica atuando sozinho por meses. Aplicou princípios Lean 6 Sigma, automatizou tarefas com Python e desenvolveu dashboards e análises avançadas em Power BI integrando múltiplas fontes de dados, com apresentações focadas no cliente.' },
-    { role: 'Estagiário de Engenharia', company: 'Grupo Luminae Energia', period: 'março de 2021 – junho de 2022 (1 ano 4 meses)', desc: 'Início da trajetória profissional na área de automação de supermercados e eficiência energética.' },
+    { company: 'Cirion Technologies',
+      role:   { pt: 'Analista de Dados', en: 'Data Analyst', es: 'Analista de Datos' },
+      period: { pt: 'fevereiro de 2025 – atual', en: 'February 2025 – present', es: 'febrero de 2025 – actual' },
+      desc:   { pt: 'Analista de Dados Sênior focado no desenvolvimento de KPIs e análise de resultados.',
+                en: 'Senior Data Analyst focused on KPI development and results analysis.',
+                es: 'Analista de Datos Sénior enfocado en el desarrollo de KPIs y análisis de resultados.' } },
+    { company: 'act digital',
+      role:   { pt: 'Analista de Dados', en: 'Data Analyst', es: 'Analista de Datos' },
+      period: { pt: 'novembro de 2024 – fevereiro de 2025 (4 meses)', en: 'November 2024 – February 2025 (4 months)', es: 'noviembre de 2024 – febrero de 2025 (4 meses)' },
+      desc:   { pt: 'Atuação em análise de dados durante transição de carreira para o setor de tecnologia.',
+                en: 'Data analysis work during my career transition into the technology sector.',
+                es: 'Trabajo en análisis de datos durante la transición de carrera al sector tecnológico.' } },
+    { company: 'Grupo Luminae Energia',
+      role:   { pt: 'Analista de Monitoramento Pleno', en: 'Monitoring Analyst (Mid-level)', es: 'Analista de Monitoreo Semi Sénior' },
+      period: { pt: 'janeiro de 2024 – novembro de 2024 (11 meses)', en: 'January 2024 – November 2024 (11 months)', es: 'enero de 2024 – noviembre de 2024 (11 meses)' },
+      desc:   { pt: 'Promovido para dar continuidade à área com nova estrutura e equipe. Atuou como referência técnica, apoiando novos colaboradores na manutenção de processos e no aprimoramento contínuo das soluções, com foco em eficiência, escalabilidade e resultados sustentáveis.',
+                en: 'Promoted to keep the area running with a new structure and team. Acted as the technical reference, supporting new colleagues in maintaining processes and continuously improving solutions, focused on efficiency, scalability and sustainable results.',
+                es: 'Promovido para dar continuidad al área con nueva estructura y equipo. Actuó como referencia técnica, apoyando a nuevos colaboradores en el mantenimiento de procesos y en la mejora continua de las soluciones, con foco en eficiencia, escalabilidad y resultados sostenibles.' } },
+    { company: 'Grupo Luminae Energia',
+      role:   { pt: 'Analista de Monitoramento Jr', en: 'Monitoring Analyst (Junior)', es: 'Analista de Monitoreo Jr' },
+      period: { pt: 'junho de 2022 – janeiro de 2024 (1 ano 8 meses)', en: 'June 2022 – January 2024 (1 year 8 months)', es: 'junio de 2022 – enero de 2024 (1 año 8 meses)' },
+      desc:   { pt: 'Reestruturou uma área estratégica atuando sozinho por meses. Aplicou princípios Lean 6 Sigma, automatizou tarefas com Python e desenvolveu dashboards e análises avançadas em Power BI integrando múltiplas fontes de dados, com apresentações focadas no cliente.',
+                en: 'Restructured a strategic area working alone for months. Applied Lean 6 Sigma principles, automated tasks with Python and built dashboards and advanced analyses in Power BI integrating multiple data sources, with client-focused presentations.',
+                es: 'Reestructuró un área estratégica trabajando solo durante meses. Aplicó principios Lean 6 Sigma, automatizó tareas con Python y desarrolló dashboards y análisis avanzados en Power BI integrando múltiples fuentes de datos, con presentaciones enfocadas en el cliente.' } },
+    { company: 'Grupo Luminae Energia',
+      role:   { pt: 'Estagiário de Engenharia', en: 'Engineering Intern', es: 'Pasante de Ingeniería' },
+      period: { pt: 'março de 2021 – junho de 2022 (1 ano 4 meses)', en: 'March 2021 – June 2022 (1 year 4 months)', es: 'marzo de 2021 – junio de 2022 (1 año 4 meses)' },
+      desc:   { pt: 'Início da trajetória profissional na área de automação de supermercados e eficiência energética.',
+                en: 'Start of my professional path, working on supermarket automation and energy efficiency.',
+                es: 'Inicio de la trayectoria profesional en automatización de supermercados y eficiencia energética.' } },
   ];
 
   const PHILOSOPHY = [
-    { title: 'Resiliência', desc: 'lido bem com retrabalho e mudanças de escopo sem perder o foco na entrega.' },
-    { title: 'Liderança Técnica', desc: 'apoio e oriento colegas na manutenção e evolução de processos e soluções.' },
-    { title: 'Melhoria Contínua', desc: 'aplico Lean Six Sigma para elevar eficiência, qualidade e escalabilidade.' },
-    { title: 'Comunicação Clara', desc: 'traduzo complexidade técnica em insights compreensíveis para o negócio.' },
+    { title: { pt: 'Resiliência', en: 'Resilience', es: 'Resiliencia' },
+      desc:  { pt: 'lido bem com retrabalho e mudanças de escopo sem perder o foco na entrega.',
+               en: 'I handle rework and scope changes without losing focus on delivery.',
+               es: 'manejo bien el retrabajo y los cambios de alcance sin perder el foco en la entrega.' } },
+    { title: { pt: 'Liderança Técnica', en: 'Technical Leadership', es: 'Liderazgo Técnico' },
+      desc:  { pt: 'apoio e oriento colegas na manutenção e evolução de processos e soluções.',
+               en: 'I support and guide colleagues in maintaining and evolving processes and solutions.',
+               es: 'apoyo y oriento a colegas en el mantenimiento y la evolución de procesos y soluciones.' } },
+    { title: { pt: 'Melhoria Contínua', en: 'Continuous Improvement', es: 'Mejora Continua' },
+      desc:  { pt: 'aplico Lean Six Sigma para elevar eficiência, qualidade e escalabilidade.',
+               en: 'I apply Lean Six Sigma to raise efficiency, quality and scalability.',
+               es: 'aplico Lean Six Sigma para elevar eficiencia, calidad y escalabilidad.' } },
+    { title: { pt: 'Comunicação Clara', en: 'Clear Communication', es: 'Comunicación Clara' },
+      desc:  { pt: 'traduzo complexidade técnica em insights compreensíveis para o negócio.',
+               en: 'I translate technical complexity into insight the business can act on.',
+               es: 'traduzco la complejidad técnica en insights comprensibles para el negocio.' } },
   ];
 
   const EXPERIENCE_START = new Date(2021, 2, 1); // março de 2021 — início do estágio de engenharia
@@ -308,9 +473,9 @@
     let months = now.getMonth() - start.getMonth();
     if (now.getDate() < start.getDate()) months -= 1;
     if (months < 0) { years -= 1; months += 12; }
-    const y = years > 0 ? `${years} ${years === 1 ? 'ano' : 'anos'}` : '';
-    const m = months > 0 ? `${months} ${months === 1 ? 'mês' : 'meses'}` : '';
-    return [y, m].filter(Boolean).join(' ') || '0 meses';
+    const y = years > 0 ? `${years} ${years === 1 ? t('durYear') : t('durYears')}` : '';
+    const m = months > 0 ? `${months} ${months === 1 ? t('durMonth') : t('durMonths')}` : '';
+    return [y, m].filter(Boolean).join(' ') || t('durZero');
   }
 
   const PROFICIENCY = [
@@ -332,7 +497,7 @@
     NAV.forEach(n => {
       const btn = document.createElement('button');
       btn.className = 'nav-item' + (n.id === active ? ' active' : '');
-      btn.textContent = n.label;
+      btn.textContent = L(n.label);
       btn.onclick = () => goTo(n.id);
       nav.appendChild(btn);
     });
@@ -352,10 +517,10 @@
     const div = document.createElement('div');
     div.className = 'job';
     div.innerHTML = `
-      <div class="job-role">${job.role}</div>
+      <div class="job-role">${L(job.role)}</div>
       <div class="job-company">${job.company}</div>
-      <div class="job-period">${job.period}</div>
-      <div class="job-desc">${job.desc}</div>
+      <div class="job-period">${L(job.period)}</div>
+      <div class="job-desc">${L(job.desc)}</div>
     `;
     return div;
   }
@@ -371,7 +536,7 @@
     PHILOSOPHY.forEach(item => {
       const div = document.createElement('div');
       div.className = 'phil-item';
-      div.innerHTML = `<span>▸</span><div><b style="color:var(--text);">${item.title}</b> — ${item.desc}</div>`;
+      div.innerHTML = `<span>▸</span><div><b style="color:var(--text);">${L(item.title)}</b> — ${L(item.desc)}</div>`;
       container.appendChild(div);
     });
   }
@@ -398,7 +563,7 @@
       group.className = 'project-group';
       const heading = document.createElement('div');
       heading.className = 'project-group-title';
-      heading.textContent = cat;
+      heading.textContent = categoryLabel(cat);
       group.appendChild(heading);
 
       const grid = document.createElement('div');
@@ -407,7 +572,7 @@
       if (items.length === 0) {
         const empty = document.createElement('div');
         empty.className = 'project-empty';
-        empty.textContent = 'Em breve.';
+        empty.textContent = t('projectEmpty');
         grid.appendChild(empty);
       } else {
         items.forEach(p => {
@@ -415,9 +580,9 @@
           card.className = 'project-card';
           card.innerHTML = `
             <div class="project-title">${p.title}</div>
-            <div class="project-desc">${p.desc}</div>
-            <div class="project-tags">${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}</div>
-            <a class="project-link" href="${p.url}" target="_blank" rel="noopener">ver no GitHub →</a>
+            <div class="project-desc">${L(p.desc)}</div>
+            <div class="project-tags">${p.tags.map(tag => `<span class="project-tag">${L(tag)}</span>`).join('')}</div>
+            <a class="project-link" href="${p.url}" target="_blank" rel="noopener">${t('projectLink')}</a>
           `;
           grid.appendChild(card);
         });
@@ -444,22 +609,86 @@
 
   const BG_GIF_PAGES = ['home', 'contact'];
 
+  let currentPage = 'home';
+
+  function syncUrl() {
+    // Mantém idioma e página na URL para que o link seja compartilhável (ex.: ?lang=en#projects).
+    const search = LANG === DEFAULT_LANG ? '' : '?lang=' + LANG;
+    // replaceState falha em contexto sem origem (file://, preview sandboxed); a página segue funcionando.
+    try { history.replaceState(null, '', location.pathname + search + '#' + currentPage); } catch (e) { /* sem origem */ }
+  }
+
   function goTo(page) {
+    currentPage = page;
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.dataset.page === page));
     renderNav(page);
     document.getElementById('bg-gif').classList.toggle('visible', BG_GIF_PAGES.includes(page));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    history.replaceState(null, '', '#' + page);
+    syncUrl();
   }
 
-  renderChips(document.getElementById('stack-home'), SKILLS);
-  renderTimeline(document.getElementById('timeline-home'), JOBS.slice(0, 3));
-  renderTimeline(document.getElementById('timeline-full'), JOBS);
-  renderProjects(document.getElementById('projects-full'), PROJECT_CATEGORIES, PROJECTS);
-  document.getElementById('exp-duration').textContent = calcExperienceDuration(EXPERIENCE_START);
-  renderPhilosophy();
-  renderProficiency();
-  renderContacts();
+  // --- idioma ---------------------------------------------------------------
+
+  function applyStaticText() {
+    document.documentElement.lang = t('htmlLang');
+    document.title = t('pageTitle');
+    document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+  }
+
+  function renderLangSwitch() {
+    const box = document.getElementById('lang-switch');
+    box.innerHTML = '';
+    LANGS.forEach(code => {
+      const btn = document.createElement('button');
+      btn.className = 'lang-item' + (code === LANG ? ' active' : '');
+      btn.textContent = code.toUpperCase();
+      btn.setAttribute('lang', code);
+      btn.setAttribute('aria-pressed', String(code === LANG));
+      btn.onclick = () => setLang(code);
+      box.appendChild(btn);
+    });
+  }
+
+  function renderAll() {
+    applyStaticText();
+    renderLangSwitch();
+    renderNav(currentPage);
+    renderChips(document.getElementById('stack-home'), SKILLS);
+    renderTimeline(document.getElementById('timeline-home'), JOBS.slice(0, 3));
+    renderTimeline(document.getElementById('timeline-full'), JOBS);
+    renderProjects(document.getElementById('projects-full'), PROJECT_CATEGORIES, PROJECTS);
+    document.getElementById('exp-duration').textContent = calcExperienceDuration(EXPERIENCE_START);
+    renderPhilosophy();
+    renderProficiency();
+    renderContacts();
+  }
+
+  function setLang(code, skipUrl) {
+    if (!LANGS.includes(code)) return;
+    LANG = code;
+    try { localStorage.setItem('lang', code); } catch (e) { /* modo privado / storage bloqueado */ }
+    renderAll();
+    if (!skipUrl) syncUrl();
+  }
+
+  function detectLang() {
+    const fromUrl = new URLSearchParams(location.search).get('lang');
+    if (LANGS.includes(fromUrl)) return fromUrl;
+    try {
+      const saved = localStorage.getItem('lang');
+      if (LANGS.includes(saved)) return saved;
+    } catch (e) { /* storage indisponível */ }
+    const nav = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    const prefix = nav.slice(0, 2).toLowerCase();
+    if (prefix === 'pt') return 'pt';
+    if (prefix === 'es') return 'es';
+    if (prefix === 'en') return 'en';
+    return DEFAULT_LANG;
+  }
+
+  LANG = detectLang();
+  renderAll();
 
   const initial = (location.hash || '#home').slice(1);
   goTo(NAV.some(n => n.id === initial) ? initial : 'home');
