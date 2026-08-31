@@ -4,7 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leonardo Beranger Gomes // Portfolio</title>
+<meta name="description" content="Leonardo Beranger Gomes — analista de dados e BI. Automação de processo, Power BI, Python e SQL: do processo manual ao dashboard governado.">
+<meta name="theme-color" content="#060126">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Leonardo Beranger Gomes">
+<meta property="og:title" content="Leonardo Beranger Gomes // Portfolio">
+<meta property="og:description" content="Analista de dados e BI. Automação de processo, Power BI, Python e SQL: do processo manual ao dashboard governado.">
+<meta property="og:url" content="https://leonardo-beranger.github.io/portfolio/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23060126'/%3E%3Ctext x='6' y='44' font-family='monospace' font-size='34' font-weight='700' fill='%23e8e6ff'%3EL%3C/text%3E%3Ctext x='30' y='44' font-family='monospace' font-size='34' font-weight='700' fill='%231BF2B5'%3E/%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -14,13 +24,38 @@
     --pink:#F21D92;
     --purple:#E031EB;
     --text:#e8e6ff;
+    /* Texto secundário: tintado a partir do próprio foreground, nunca cinza.
+       Os três níveis medem 8,1:1, 6,3:1 e 4,9:1 sobre --bg — todos acima de AA. */
+    --text-2:rgba(232,230,255,0.78);
+    --text-3:rgba(232,230,255,0.66);
+    --text-4:rgba(232,230,255,0.58);
+    /* Escala tipográfica: passos de ~1,25 com salto claro entre corpo e título. */
+    --t-micro:12px;
+    --t-label:13px;
+    --t-body:16px;
+    --t-lead:19px;
+    --t-title:24px;
+    --mono:'Share Tech Mono',ui-monospace,'Cascadia Mono','Consolas','DejaVu Sans Mono',monospace;
+    --display:'Orbitron','Eurostile','Bahnschrift','DIN Alternate',system-ui,sans-serif;
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:'Share Tech Mono',monospace;overflow-x:hidden;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--mono);overflow-x:hidden;caret-color:var(--teal);}
   ::selection{background:var(--pink);color:var(--bg);}
   a{color:var(--teal);text-decoration:none;}
   a:hover{color:var(--pink);}
-  button{font-family:'Orbitron',sans-serif;}
+  button{font-family:var(--display);}
+  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;}
+  /* Nove paradas de tab antes do conteúdo; o atalho pula todas. */
+  .skip-link{position:absolute;left:-9999px;top:0;z-index:60;padding:12px 18px;background:var(--teal);color:var(--bg);font-family:var(--display);font-weight:700;font-size:var(--t-label);}
+  .skip-link:focus{left:8px;top:8px;color:var(--bg);}
+  /* O anel padrão do navegador some sobre o fundo escuro com o .crt por cima. */
+  .nav-item:focus-visible,.lang-item:focus-visible,.btn-primary:focus-visible{outline-color:var(--text);}
+  /* Superfícies do navegador que também carregam o desenho. */
+  html{scrollbar-color:var(--purple) rgba(3,0,133,0.35);}
+  ::-webkit-scrollbar{width:10px;height:10px;}
+  ::-webkit-scrollbar-track{background:rgba(3,0,133,0.35);}
+  ::-webkit-scrollbar-thumb{background:var(--purple);border:2px solid var(--bg);}
+  ::-webkit-scrollbar-thumb:hover{background:var(--pink);}
 
   @keyframes glitchTop{
     0%{clip-path:inset(0 0 85% 0);transform:translate(0,0);}
@@ -45,12 +80,13 @@
   @keyframes scanmove{0%{transform:translateY(-100%);}100%{transform:translateY(100vh);}}
   @keyframes pulseGlow{0%,100%{opacity:0.55;}50%{opacity:1;}}
 
-  .glitch-title{position:relative;font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(30px,6vw,72px);line-height:1.05;color:var(--text);}
+  .glitch-title{position:relative;font-family:var(--display);font-weight:900;font-size:clamp(30px,6vw,72px);line-height:1.05;color:var(--text);}
   .glitch-title::before,.glitch-title::after{content:attr(data-text);position:absolute;inset:0;}
   .glitch-title::before{color:var(--teal);clip-path:inset(0 0 85% 0);animation:glitchTop 3.5s infinite linear;text-shadow:-2px 0 var(--teal);}
   .glitch-title::after{color:var(--pink);clip-path:inset(85% 0 0 0);animation:glitchBottom 3.8s infinite linear;text-shadow:2px 0 var(--pink);}
 
-  .bg-gif{position:fixed;inset:0;z-index:0;background:url('Eu_estudio Ghibli cyber punk.gif') center/cover no-repeat;opacity:0;transition:opacity .5s ease;pointer-events:none;}
+  /* Sem background-image aqui: a URL é atribuída por JS, depois do first paint. */
+  .bg-gif{position:fixed;inset:0;z-index:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity .5s cubic-bezier(.16,1,.3,1);pointer-events:none;}
   .bg-gif.visible{opacity:1;}
   .bg-gif::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,1,38,0.72),rgba(6,1,38,0.5) 45%,rgba(6,1,38,0.85));}
 
@@ -58,15 +94,19 @@
   .crt{position:fixed;inset:0;pointer-events:none;z-index:40;background:repeating-linear-gradient(0deg,rgba(0,0,0,0.25) 0px,rgba(0,0,0,0.25) 1px,transparent 1px,transparent 3px);opacity:0.35;}
 
   header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:rgba(6,1,38,0.75);backdrop-filter:blur(10px);border-bottom:1px solid rgba(27,242,181,0.25);}
-  .logo{font-family:'Orbitron',sans-serif;font-weight:900;font-size:22px;letter-spacing:1px;color:var(--text);cursor:pointer;background:none;border:none;padding:0;}
+  .logo{font-family:var(--display);font-weight:900;font-size:22px;letter-spacing:1px;color:var(--text);cursor:pointer;background:none;border:none;padding:0;}
   .logo span{color:var(--teal);}
   nav{display:flex;gap:8px;}
-  .nav-item{font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:1px;padding:9px 16px;cursor:pointer;color:var(--text);background:transparent;border:1px solid rgba(232,230,255,0.15);}
+  .nav-item{font-family:var(--display);font-size:var(--t-label);letter-spacing:1px;min-height:44px;padding:9px 16px;cursor:pointer;color:var(--text);background:transparent;border:1px solid rgba(232,230,255,0.15);}
   .nav-item.active{color:var(--bg);background:linear-gradient(90deg,var(--pink),var(--purple));border:none;}
 
-  .header-right{display:flex;align-items:center;gap:18px;flex-wrap:wrap;justify-content:flex-end;}
+  /* CONTATO sai do nav e vira ação persistente: no celular a rolagem do nav o escondia. */
+  .btn-contact{font-family:var(--display);font-weight:700;font-size:var(--t-label);letter-spacing:1px;min-height:44px;padding:9px 18px;cursor:pointer;color:var(--teal);background:rgba(27,242,181,0.08);border:1px solid var(--teal);flex:0 0 auto;}
+  .btn-contact:hover{color:var(--bg);background:var(--teal);}
+
+  .header-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end;}
   .lang-switch{display:flex;align-items:center;gap:0;border:1px solid rgba(27,242,181,0.35);}
-  .lang-item{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:1px;padding:8px 10px;cursor:pointer;color:rgba(232,230,255,0.6);background:transparent;border:none;border-right:1px solid rgba(27,242,181,0.2);}
+  .lang-item{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:1px;min-height:44px;padding:8px 12px;cursor:pointer;color:var(--text-3);background:transparent;border:none;border-right:1px solid rgba(27,242,181,0.2);}
   .lang-item:last-child{border-right:none;}
   .lang-item:hover{color:var(--teal);}
   .lang-item.active{color:var(--bg);background:var(--teal);font-weight:700;}
@@ -76,82 +116,124 @@
   .page.active{display:block;}
 
   .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:60px 48px 40px;max-width:1100px;margin:0 auto;}
-  .eyebrow{font-family:'Share Tech Mono',monospace;color:var(--teal);font-size:14px;letter-spacing:3px;margin-bottom:18px;opacity:0.85;}
-  .role-line{font-family:'Orbitron',sans-serif;font-weight:600;font-size:clamp(16px,2vw,24px);color:var(--purple);margin-top:20px;letter-spacing:1px;}
-  .tagline{margin-top:32px;font-size:17px;color:rgba(232,230,255,0.75);}
+  .eyebrow{font-family:var(--mono);color:var(--teal);font-size:var(--t-label);letter-spacing:3px;margin-bottom:18px;opacity:0.9;}
+  .role-line{font-family:var(--display);font-weight:600;font-size:clamp(17px,2vw,26px);color:var(--purple);margin-top:20px;letter-spacing:1px;}
+  .tagline{margin-top:32px;font-size:var(--t-lead);color:var(--text-2);}
   .caret{display:inline-block;width:9px;height:18px;background:var(--teal);margin-left:6px;animation:blink 1s step-end infinite;vertical-align:middle;}
   .cta-row{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap;}
-  .btn-primary{font-weight:700;font-size:14px;letter-spacing:1px;padding:15px 30px;background:linear-gradient(90deg,var(--pink),var(--purple));color:var(--bg);border:none;cursor:pointer;box-shadow:0 0 24px rgba(242,29,146,0.55);}
-  .btn-ghost{font-weight:700;font-size:14px;letter-spacing:1px;padding:15px 30px;background:transparent;color:var(--teal);border:1px solid var(--teal);cursor:pointer;}
+  .btn-primary{font-weight:700;font-size:var(--t-label);letter-spacing:1px;min-height:44px;padding:15px 30px;background:linear-gradient(90deg,var(--pink),var(--purple));color:var(--bg);border:none;cursor:pointer;box-shadow:0 10px 28px -12px rgba(242,29,146,0.75);}
+  .btn-ghost{font-weight:700;font-size:var(--t-label);letter-spacing:1px;min-height:44px;padding:15px 30px;background:transparent;color:var(--teal);border:1px solid var(--teal);cursor:pointer;}
+  /* Link de texto que antes era <div onclick>: agora é botão real, alcançável por teclado. */
+  .link-more{display:inline-block;margin-top:18px;font-family:var(--mono);font-size:var(--t-body);letter-spacing:1px;color:var(--pink);background:none;border:none;border-bottom:1px solid var(--pink);padding:6px 0;cursor:pointer;}
+  .link-more:hover{color:var(--teal);border-bottom-color:var(--teal);}
 
   section.block{max-width:1100px;margin:0 auto;padding:40px 48px 80px;border-top:1px solid rgba(232,230,255,0.08);}
-  .sec-title{font-family:'Orbitron',sans-serif;color:var(--teal);font-size:13px;letter-spacing:3px;margin-bottom:14px;}
-  .sec-heading{font-family:'Orbitron',sans-serif;font-weight:900;font-size:clamp(28px,4vw,48px);color:var(--text);margin-bottom:8px;}
+  .sec-title{font-family:var(--display);color:var(--teal);font-size:var(--t-label);letter-spacing:3px;margin:0 0 14px;font-weight:500;}
+  .sec-heading{font-family:var(--display);font-weight:900;font-size:clamp(28px,4vw,48px);line-height:1.1;color:var(--text);margin:0 0 8px;}
   .rule{width:80px;height:3px;background:linear-gradient(90deg,var(--pink),var(--teal));margin-bottom:40px;}
-  .about-text{font-size:18px;line-height:1.7;color:rgba(232,230,255,0.85);max-width:820px;}
+  .about-text{font-size:var(--t-lead);line-height:1.7;color:var(--text-2);max-width:68ch;}
 
   .stack{display:flex;flex-wrap:wrap;gap:14px;}
-  .chip{font-family:'Share Tech Mono',monospace;font-size:14px;padding:10px 20px;border:1px solid rgba(224,49,235,0.4);color:var(--text);background:rgba(224,49,235,0.06);}
+  .chip{font-family:var(--mono);font-size:var(--t-body);padding:10px 20px;border:1px solid rgba(224,49,235,0.4);color:var(--text);background:rgba(224,49,235,0.06);}
 
   .timeline{display:flex;flex-direction:column;gap:0;}
   .job{border-left:2px solid rgba(27,242,181,0.35);padding:4px 0 28px 26px;position:relative;}
   .job::before{content:'';position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 10px var(--teal);}
-  .job-role{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--text);font-weight:700;}
-  .job-company{color:var(--purple);font-size:13px;letter-spacing:1px;margin-top:2px;}
-  .job-period{color:rgba(232,230,255,0.5);font-size:12px;margin-top:4px;}
-  .job-desc{font-size:14px;color:rgba(232,230,255,0.75);line-height:1.6;margin-top:10px;max-width:760px;}
+  .job-role{font-family:var(--display);font-size:var(--t-lead);line-height:1.25;color:var(--text);font-weight:700;margin:0;}
+  .job-company{color:var(--purple);font-size:var(--t-label);letter-spacing:1px;margin-top:4px;}
+  .job-period{color:var(--text-4);font-size:var(--t-micro);margin-top:4px;}
+  .job-desc{font-size:var(--t-body);color:var(--text-2);line-height:1.6;margin-top:12px;max-width:68ch;}
 
   .about-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:44px;align-items:start;}
   @media (max-width:820px){.about-grid{grid-template-columns:1fr;}}
   .status-card{border:1px solid rgba(27,242,181,0.3);background:rgba(3,0,133,0.2);padding:28px;}
-  .status-label{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--teal);letter-spacing:2px;margin-bottom:20px;}
-  .stat-label{font-size:12px;color:rgba(232,230,255,0.55);}
-  .stat-value{font-family:'Orbitron',sans-serif;font-size:22px;color:var(--text);font-weight:700;}
+  .status-label{font-family:var(--mono);font-size:var(--t-micro);color:var(--teal);letter-spacing:2px;margin-bottom:20px;}
+  .stat-label{font-size:var(--t-micro);color:var(--text-4);}
+  .stat-value{font-family:var(--display);font-size:var(--t-title);color:var(--text);font-weight:700;}
   .bar-track{height:5px;background:rgba(232,230,255,0.08);position:relative;margin-top:4px;}
   .bar-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--pink));animation:pulseGlow 2.4s ease-in-out infinite;}
-  .phil-item{display:flex;gap:12px;font-size:15px;color:rgba(232,230,255,0.8);margin-bottom:12px;}
+  .phil-item{display:flex;gap:12px;font-size:var(--t-body);color:var(--text-2);margin-bottom:12px;}
   .phil-item span{color:var(--teal);}
 
-  .project-group{margin-bottom:44px;}
-  .project-group-title{font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin-bottom:18px;padding-bottom:8px;border-bottom:1px solid rgba(224,49,235,0.25);}
-  .project-empty{grid-column:1/-1;font-size:14px;color:rgba(232,230,255,0.4);border:1px dashed rgba(232,230,255,0.2);padding:20px;text-align:center;}
-  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;}
-  .project-card{border:1px solid rgba(27,242,181,0.25);background:rgba(3,0,133,0.15);padding:24px;display:flex;flex-direction:column;gap:12px;transition:border-color .2s,box-shadow .2s;}
-  .project-card:hover{border-color:rgba(242,29,146,0.6);box-shadow:0 0 24px rgba(242,29,146,0.25);}
-  .project-title{font-family:'Orbitron',sans-serif;font-size:16px;color:var(--text);font-weight:700;}
-  .project-desc{font-size:13px;color:rgba(232,230,255,0.7);line-height:1.55;flex-grow:1;}
+  /* Container externo é bloco: quando era grid, os grupos viravam células e tilavam desiguais. */
+  .projects-stack{display:block;}
+  .project-group{margin-bottom:56px;}
+  .project-group-title{position:sticky;top:82px;z-index:3;font-family:var(--display);color:var(--purple);font-size:var(--t-body);letter-spacing:1px;margin:0 0 6px;padding:10px 0 8px;border-bottom:1px solid rgba(224,49,235,0.25);background:rgba(6,1,38,0.92);backdrop-filter:blur(6px);}
+  .project-group-note{font-size:var(--t-label);color:var(--text-4);margin:0 0 20px;}
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;}
+  .project-card{border:1px solid rgba(27,242,181,0.25);background:rgba(3,0,133,0.15);padding:26px;display:flex;flex-direction:column;gap:10px;transition:border-color .25s cubic-bezier(.16,1,.3,1),box-shadow .25s cubic-bezier(.16,1,.3,1),transform .25s cubic-bezier(.16,1,.3,1);}
+  .project-card:hover,.project-card:focus-within{border-color:rgba(242,29,146,0.6);box-shadow:0 18px 40px -22px rgba(242,29,146,0.9);transform:translateY(-2px);}
+  .project-title{font-family:var(--display);font-size:var(--t-title);line-height:1.2;color:var(--text);font-weight:700;margin:0;}
+  .project-repo{font-family:var(--mono);font-size:var(--t-micro);color:var(--text-4);letter-spacing:0.5px;}
+  /* problema → gargalo → solução → ganho: o gargalo é o que faz o leitor se reconhecer. */
+  .project-problem{font-size:var(--t-body);color:var(--text);line-height:1.5;border-left:1px solid var(--pink);padding-left:12px;}
+  .project-catch{font-size:var(--t-label);color:var(--text-3);line-height:1.5;}
+  .project-desc{font-size:var(--t-body);color:var(--text-2);line-height:1.55;flex-grow:1;}
+  .project-gain{font-size:var(--t-label);color:var(--teal);line-height:1.5;}
   .project-tags{display:flex;flex-wrap:wrap;gap:6px;}
-  .project-tag{font-size:11px;padding:4px 10px;border:1px solid rgba(27,242,181,0.4);color:var(--teal);}
-  .project-link{font-size:13px;color:var(--pink);}
+  .project-tag{font-size:var(--t-micro);padding:4px 10px;border:1px solid rgba(27,242,181,0.4);color:var(--teal);}
+  .project-link{display:inline-flex;align-items:center;min-height:44px;font-size:var(--t-body);color:var(--pink);}
+  .project-link:hover{color:var(--teal);}
+
+  /* Bloco de fechamento: toda página termina com uma rota para o contato. */
+  .cta-close{max-width:1100px;margin:0 auto;padding:0 48px 90px;}
+  .cta-close-inner{border:1px solid rgba(27,242,181,0.3);background:rgba(3,0,133,0.22);padding:32px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  .cta-close-title{font-family:var(--display);font-weight:700;font-size:var(--t-title);color:var(--text);margin:0 0 6px;}
+  .cta-close-sub{font-size:var(--t-body);color:var(--text-3);margin:0;}
+  .cta-close-actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .cta-close a.btn-primary,.cta-close a.btn-ghost{display:inline-flex;align-items:center;text-decoration:none;}
+  .cta-close a.btn-primary{color:var(--bg);}
+  .cta-close a.btn-ghost:hover{color:var(--bg);background:var(--teal);}
 
   .contact-grid{display:grid;grid-template-columns:1fr;gap:16px;max-width:520px;}
-  .contact-card{border:1px solid rgba(224,49,235,0.3);padding:16px 18px;background:rgba(224,49,235,0.05);}
-  .contact-label{font-size:11px;color:var(--purple);letter-spacing:2px;margin-bottom:6px;}
-  .contact-value{font-size:15px;color:var(--text);}
+  .contact-card{border:1px solid rgba(224,49,235,0.3);background:rgba(224,49,235,0.05);}
+  .contact-card a{display:block;padding:16px 18px;color:var(--text);}
+  .contact-card a:hover{color:var(--teal);background:rgba(224,49,235,0.08);}
+  .contact-label{display:block;font-size:var(--t-micro);color:var(--purple);letter-spacing:2px;margin-bottom:6px;}
+  .contact-value{display:block;font-size:var(--t-body);word-break:break-word;}
 
-  footer{border-top:1px solid rgba(232,230,255,0.08);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;font-size:12px;color:rgba(232,230,255,0.4);flex-wrap:wrap;gap:10px;}
+  footer{border-top:1px solid rgba(232,230,255,0.08);padding:28px 48px;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;font-size:var(--t-micro);color:var(--text-4);flex-wrap:wrap;gap:10px;}
   .status-online{color:var(--teal);}
 
-  @media (max-width:700px){
-    header{padding:14px 20px;flex-wrap:wrap;gap:10px;}
-    nav{gap:4px;overflow-x:auto;max-width:100%;scrollbar-width:none;}
-    nav::-webkit-scrollbar{display:none;}
-    .nav-item{padding:8px 10px;font-size:11px;flex:0 0 auto;}
-    .header-right{gap:8px;width:100%;justify-content:space-between;flex-wrap:nowrap;}
-    .lang-switch{flex:0 0 auto;}
-    .lang-item{padding:6px 7px;font-size:11px;}
+  @media (max-width:820px){
+    /* Duas linhas: logo + CONTATO + idioma em cima, nav inteiro embaixo.
+       Assim nenhum destino sai da faixa visível, como acontecia com nav rolável. */
+    header{padding:10px 20px;flex-wrap:wrap;gap:8px;}
+    /* display:contents dissolve o agrupador para o header decidir as duas linhas. */
+    .header-right{display:contents;}
+    nav{order:3;flex:1 1 100%;width:100%;gap:4px;}
+    .nav-item{flex:1 1 0;min-width:0;padding:10px 4px;font-size:11px;letter-spacing:0.5px;text-align:center;}
+    .btn-contact{order:2;margin-left:auto;padding:9px 14px;font-size:11px;}
+    .lang-switch{order:2;}
+    .lang-item{padding:9px 8px;font-size:11px;}
     .hero, section.block, main{padding-left:20px;padding-right:20px;}
+    .hero{min-height:74vh;}
+    .cta-close{padding:0 20px 70px;}
+    .cta-close-inner{padding:24px;}
+    /* No celular o header ocupa duas linhas; título fixo roubaria viewport demais. */
+    .project-group-title{position:static;}
     footer{padding:20px;}
+  }
+
+  /* Os efeitos de CRT, scanline e glitch são decorativos e precisam continuar decorativos
+     para quem reduz movimento. */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;}
+    .scanline{display:none;}
+    .glitch-title::before,.glitch-title::after{display:none;}
+    .caret{opacity:1;}
   }
 </style>
 </head>
 <body>
 
-<div class="bg-gif" id="bg-gif"></div>
-<div class="crt"></div>
-<div class="scanline"></div>
+<a class="skip-link" href="#main" data-i18n="skipLink">Ir para o conteúdo</a>
 
-<svg style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.25;" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+<div class="bg-gif" id="bg-gif" aria-hidden="true"></div>
+<div class="crt" aria-hidden="true"></div>
+<div class="scanline" aria-hidden="true"></div>
+
+<svg aria-hidden="true" focusable="false" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:0.25;" viewBox="0 0 1920 1080" preserveAspectRatio="none">
   <path d="M0,120 L400,120 L440,160 L900,160 L940,200 L1920,200" fill="none" stroke="#1BF2B5" stroke-width="1.5" stroke-dasharray="8 10" style="animation:dashmove 20s linear infinite;"></path>
   <path d="M0,900 L300,900 L340,860 L800,860 L840,820 L1920,820" fill="none" stroke="#F21D92" stroke-width="1.5" stroke-dasharray="8 10" style="animation:dashmove 24s linear infinite;"></path>
   <path d="M1920,500 L1500,500 L1460,540 L1100,540 L1060,580 L500,580" fill="none" stroke="#E031EB" stroke-width="1" stroke-dasharray="4 8" style="animation:dashmove 18s linear infinite;"></path>
@@ -161,19 +243,20 @@
   <button class="logo" onclick="goTo('home')">LEO<span>://</span></button>
   <div class="header-right">
     <nav id="nav"></nav>
+    <button class="btn-contact" id="btn-contact" onclick="goTo('contact')" data-i18n="ctaContact">CONTATO</button>
     <div class="lang-switch" id="lang-switch" role="group" aria-label="Language"></div>
   </div>
 </header>
 
-<main>
+<main id="main">
 
   <div class="page" data-page="home">
     <section class="hero">
       <div class="eyebrow">// PORTFOLIO.INIT</div>
-      <div class="glitch-title" data-text="LEONARDO BERANGER GOMES">LEONARDO BERANGER GOMES</div>
+      <h1 class="glitch-title" data-text="LEONARDO BERANGER GOMES">LEONARDO BERANGER GOMES</h1>
       <div class="role-line" data-i18n="roleLine">Engenheiro de Controle e Automação · Engenheiro de Dados</div>
       <div class="tagline"><span style="color:var(--teal);">&gt;</span>&nbsp;<span data-i18n="tagline">transformando dados em insights estratégicos</span><span class="caret"></span></div>
-      <div style="margin-top:10px;font-size:13px;color:rgba(232,230,255,0.5);" data-i18n="siteBy">// este site foi criado por mim, Leonardo Beranger Gomes</div>
+      <div style="margin-top:10px;font-size:var(--t-label);color:var(--text-4);" data-i18n="siteBy">// este site foi criado por mim, Leonardo Beranger Gomes</div>
       <div class="cta-row">
         <button class="btn-primary" onclick="goTo('experience')" data-i18n="ctaExperience">VER EXPERIÊNCIA</button>
         <button class="btn-ghost" onclick="goTo('contact')" data-i18n="ctaContact">CONTATO</button>
@@ -181,60 +264,64 @@
     </section>
 
     <section class="block">
-      <div class="sec-title" data-i18n="secAbout">01 // SOBRE</div>
+      <h2 class="sec-title" data-i18n="secAbout">01 // SOBRE</h2>
       <p class="about-text" data-i18n-html="aboutHome">Formado em Engenharia de Controle e Automação pelo Centro Universitário FEI, migrei da automação industrial para a área de dados ao descobrir paixão por transformar processos e informações em decisões inteligentes. Hoje atuo como <b style="color:var(--text);">Analista de Dados Sênior</b>, com certificação <b style="color:var(--text);">Green Belt Lean Six Sigma</b> e domínio de <b style="color:var(--text);">Python, SQL, Power BI e Tableau</b> para desenvolver KPIs, dashboards e análises que orientam o crescimento do negócio.</p>
-      <div style="margin-top:18px;display:inline-block;color:var(--pink);font-size:14px;letter-spacing:1px;cursor:pointer;border-bottom:1px solid var(--pink);padding-bottom:2px;" onclick="goTo('about')" data-i18n="knowMore">saiba mais →</div>
+      <button class="link-more" onclick="goTo('about')" data-i18n="knowMore">saiba mais →</button>
     </section>
 
     <section class="block">
-      <div class="sec-title" data-i18n="secStack">02 // STACK</div>
+      <h2 class="sec-title" data-i18n="secStack">02 // STACK</h2>
       <div class="stack" id="stack-home"></div>
     </section>
 
     <section class="block" style="padding-bottom:100px;">
       <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;">
-        <div class="sec-title" style="margin-bottom:0;" data-i18n="secTrajectory">03 // TRAJETÓRIA EM DESTAQUE</div>
-        <div style="color:var(--pink);font-size:13px;cursor:pointer;" onclick="goTo('experience')" data-i18n="seeAll">ver tudo →</div>
+        <h2 class="sec-title" style="margin-bottom:0;" data-i18n="secTrajectory">03 // TRAJETÓRIA EM DESTAQUE</h2>
+        <button class="link-more" style="margin-top:0;" onclick="goTo('experience')" data-i18n="seeAll">ver tudo →</button>
       </div>
       <div class="timeline" id="timeline-home"></div>
     </section>
+    <div class="cta-close" data-cta-close></div>
   </div>
 
   <div class="page" data-page="experience">
     <section class="block" style="border-top:none;padding-top:60px;">
       <div class="eyebrow" data-i18n="eyebrowExperience">// EXPERIENCIA.LISTAR</div>
-      <div class="sec-heading" data-i18n="headExperience">EXPERIÊNCIA</div>
+      <h1 class="sec-heading" data-i18n="headExperience">EXPERIÊNCIA</h1>
       <div class="rule"></div>
       <div class="timeline" id="timeline-full"></div>
     </section>
+    <div class="cta-close" data-cta-close></div>
   </div>
 
   <div class="page" data-page="projects">
     <section class="block" style="border-top:none;padding-top:60px;">
       <div class="eyebrow" data-i18n="eyebrowProjects">// PROJETOS.LISTAR</div>
-      <div class="sec-heading" data-i18n="headProjects">PROJETOS</div>
+      <h1 class="sec-heading" data-i18n="headProjects">PROJETOS</h1>
+      <p class="about-text" style="font-size:var(--t-body);margin:0 0 28px;" data-i18n="projectsIntro">Cada projeto no formato problema → gargalo → solução → ganho. O gargalo é o ponto exato onde travava.</p>
       <div class="rule"></div>
-      <div class="projects-grid" id="projects-full"></div>
+      <div class="projects-stack" id="projects-full"></div>
     </section>
+    <div class="cta-close" data-cta-close></div>
   </div>
 
   <div class="page" data-page="about">
     <section class="block" style="border-top:none;padding-top:60px;">
       <div class="eyebrow" data-i18n="eyebrowProfile">// PERFIL.EXIBIR</div>
-      <div class="sec-heading" data-i18n="headAbout">SOBRE MIM</div>
+      <h1 class="sec-heading" data-i18n="headAbout">SOBRE MIM</h1>
       <div class="rule"></div>
 
       <div class="about-grid">
         <div>
-          <p class="about-text" style="font-size:17px;" data-i18n="aboutLong">Engenheiro de Controle e Automação (Centro Universitário FEI, 2018–2022) que encontrou na área de dados um novo propósito profissional. Comecei com um curso técnico em automação industrial, atuei em automação de supermercados e eficiência energética, e migrei para análise de dados aplicando os mesmos princípios de rigor e melhoria contínua da engenharia.</p>
-          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 12px;" data-i18n="labelEdge">DIFERENCIAL</div>
+          <p class="about-text" data-i18n="aboutLong">Engenheiro de Controle e Automação (Centro Universitário FEI, 2018–2022) que encontrou na área de dados um novo propósito profissional. Comecei com um curso técnico em automação industrial, atuei em automação de supermercados e eficiência energética, e migrei para análise de dados aplicando os mesmos princípios de rigor e melhoria contínua da engenharia.</p>
+          <h2 style="font-family:var(--display);color:var(--purple);font-size:var(--t-body);letter-spacing:2px;margin:36px 0 12px;" data-i18n="labelEdge">DIFERENCIAL</h2>
           <p class="about-text" data-i18n="edgeText">Resiliência diante de retrabalho e liderança técnica: fui promovido para dar continuidade a uma área estratégica após reestruturá-la sozinho, aplicando Lean Six Sigma, automação com Python e dashboards em Power BI com foco em resultados sustentáveis.</p>
-          <div style="font-family:'Orbitron',sans-serif;color:var(--purple);font-size:14px;letter-spacing:2px;margin:32px 0 16px;" data-i18n="labelPhilosophy">FILOSOFIA DE TRABALHO</div>
+          <h2 style="font-family:var(--display);color:var(--purple);font-size:var(--t-body);letter-spacing:2px;margin:36px 0 16px;" data-i18n="labelPhilosophy">FILOSOFIA DE TRABALHO</h2>
           <div id="philosophy"></div>
         </div>
 
         <div class="status-card">
-          <div class="status-label">SYSTEM.STATUS</div>
+          <h2 class="status-label" data-i18n="statusLabel">SYSTEM.STATUS</h2>
           <div style="display:flex;flex-direction:column;gap:20px;">
             <div>
               <div class="stat-label" data-i18n="statExperience">EXPERIÊNCIA</div>
@@ -246,7 +333,7 @@
             </div>
             <div>
               <div class="stat-label" data-i18n="statLanguages">IDIOMAS</div>
-              <div class="stat-value" style="font-size:16px;" data-i18n="languagesValue">Inglês (intermediário) · Espanhol (intermediário)</div>
+              <div class="stat-value" style="font-size:var(--t-body);line-height:1.5;" data-i18n="languagesValue">Inglês (intermediário) · Espanhol (intermediário)</div>
             </div>
             <div style="border-top:1px solid rgba(232,230,255,0.1);padding-top:18px;">
               <div class="stat-label" style="margin-bottom:10px;" data-i18n="statProficiency">PROFICIÊNCIA</div>
@@ -256,12 +343,14 @@
         </div>
       </div>
     </section>
+    <div class="cta-close" data-cta-close></div>
   </div>
 
   <div class="page" data-page="contact">
     <section class="block" style="border-top:none;padding-top:60px;">
       <div class="eyebrow" data-i18n="eyebrowContact">// CONTATO.CONECTAR</div>
-      <div class="sec-heading" data-i18n="headContact">VAMOS CONVERSAR</div>
+      <h1 class="sec-heading" data-i18n="headContact">VAMOS CONVERSAR</h1>
+      <p class="about-text" style="font-size:var(--t-body);margin:0 0 28px;" data-i18n="contactIntro">Processo manual doendo, dashboard que ninguém confia, relatório montado à mão toda semana: me conte qual é o seu.</p>
       <div class="rule"></div>
       <div class="contact-grid" id="contacts"></div>
     </section>
@@ -270,7 +359,7 @@
 </main>
 
 <footer>
-  <div>© 2026 LEONARDO BERANGER GOMES</div>
+  <div><span id="footer-year">2026</span> · LEONARDO BERANGER GOMES</div>
   <div class="status-online">SYSTEM ONLINE</div>
 </footer>
 
@@ -334,9 +423,39 @@
     statLanguages:     { pt: 'IDIOMAS', en: 'LANGUAGES', es: 'IDIOMAS' },
     languagesValue:    { pt: 'Português (nativo) · Inglês (intermediário) · Espanhol (intermediário)', en: 'Portuguese (native) · English (intermediate) · Spanish (intermediate)', es: 'Portugués (nativo) · Inglés (intermedio) · Español (intermedio)' },
     statProficiency:   { pt: 'PROFICIÊNCIA', en: 'PROFICIENCY', es: 'DOMINIO' },
+    statusLabel:       { pt: 'SYSTEM.STATUS', en: 'SYSTEM.STATUS', es: 'SYSTEM.STATUS' },
+    skipLink:          { pt: 'Ir para o conteúdo', en: 'Skip to content', es: 'Ir al contenido' },
+
+    projectsIntro: {
+      pt: 'Cada projeto no formato problema → gargalo → solução → ganho. O gargalo é o ponto exato onde travava.',
+      en: 'Each project in the format problem → bottleneck → solution → gain. The bottleneck is where it actually stalled.',
+      es: 'Cada proyecto en el formato problema → cuello de botella → solución → ganancia. El cuello de botella es donde realmente trababa.'
+    },
+    contactIntro: {
+      pt: 'Processo manual doendo, dashboard que ninguém confia, relatório montado à mão toda semana: me conte qual é o seu.',
+      en: 'A manual process that hurts, a dashboard nobody trusts, a report rebuilt by hand every week — tell me which one is yours.',
+      es: 'Un proceso manual que duele, un dashboard en el que nadie confía, un informe rehecho a mano cada semana: cuénteme cuál es el suyo.'
+    },
+
+    ctaCloseTitle: {
+      pt: 'Tem um processo que ainda roda no braço?',
+      en: 'Still running a process by hand?',
+      es: '¿Tiene un proceso que todavía corre a mano?'
+    },
+    ctaCloseSub: {
+      pt: 'Me descreva onde ele trava. Respondo com o caminho que eu seguiria.',
+      en: 'Tell me where it stalls. I will reply with the route I would take.',
+      es: 'Cuénteme dónde se traba. Respondo con el camino que seguiría.'
+    },
+    ctaCloseMail:      { pt: 'MANDAR E-MAIL', en: 'SEND AN EMAIL', es: 'ENVIAR CORREO' },
+    ctaCloseLinkedin:  { pt: 'LINKEDIN', en: 'LINKEDIN', es: 'LINKEDIN' },
+    mailSubject: {
+      pt: 'Sobre um processo que quero automatizar',
+      en: 'About a process I want to automate',
+      es: 'Sobre un proceso que quiero automatizar'
+    },
 
     projectLink:       { pt: 'ver no GitHub →', en: 'view on GitHub →', es: 'ver en GitHub →' },
-    projectEmpty:      { pt: 'Em breve.', en: 'Coming soon.', es: 'Próximamente.' },
 
     durYear:           { pt: 'ano', en: 'year', es: 'año' },
     durYears:          { pt: 'anos', en: 'years', es: 'años' },
@@ -347,69 +466,208 @@
 
   const t = key => L(UI[key]);
 
+  // Quatro destinos no nav; CONTATO virou botão fixo no header, fora da rolagem.
   const NAV = [
     { id: 'home',       label: { pt: 'HOME',        en: 'HOME',       es: 'INICIO' } },
-    { id: 'experience', label: { pt: 'EXPERIÊNCIA', en: 'EXPERIENCE', es: 'EXPERIENCIA' } },
     { id: 'projects',   label: { pt: 'PROJETOS',    en: 'PROJECTS',   es: 'PROYECTOS' } },
+    { id: 'experience', label: { pt: 'EXPERIÊNCIA', en: 'EXPERIENCE', es: 'EXPERIENCIA' } },
     { id: 'about',      label: { pt: 'SOBRE',       en: 'ABOUT',      es: 'SOBRE MÍ' } },
-    { id: 'contact',    label: { pt: 'CONTATO',     en: 'CONTACT',    es: 'CONTACTO' } },
   ];
+  const PAGES = ['home', 'projects', 'experience', 'about', 'contact'];
 
-  const PROJECT_CATEGORIES = ['Data Science', 'Power BI', 'Python', 'HTML', 'IA'];
+  // Categorias por problema, não por tecnologia: quem chega com um processo travado
+  // procura o próprio problema, não a linguagem em que ele foi resolvido.
+  const PROJECT_CATEGORIES = ['automacao', 'bi', 'previsao', 'web'];
 
-  // Rótulo exibido por categoria. Só traduz o que muda de idioma; o resto é o próprio id.
-  const CATEGORY_LABELS = { 'IA': { pt: 'IA', en: 'AI', es: 'IA' } };
-  const categoryLabel = cat => CATEGORY_LABELS[cat] ? L(CATEGORY_LABELS[cat]) : cat;
+  const CATEGORY_LABELS = {
+    automacao: {
+      label: { pt: 'AUTOMAÇÃO DE PROCESSO', en: 'PROCESS AUTOMATION', es: 'AUTOMATIZACIÓN DE PROCESOS' },
+      note:  { pt: 'Trabalho que era feito à mão toda semana e deixou de ser.',
+               en: 'Work that used to be done by hand every week, and no longer is.',
+               es: 'Trabajo que se hacía a mano cada semana y dejó de hacerse.' }
+    },
+    bi: {
+      label: { pt: 'BI E GOVERNANÇA', en: 'BI & GOVERNANCE', es: 'BI Y GOBERNANZA' },
+      note:  { pt: 'Quando o problema não é fazer o relatório, é saber quais existem.',
+               en: 'When the problem is not building the report, but knowing which ones exist.',
+               es: 'Cuando el problema no es hacer el informe, sino saber cuáles existen.' }
+    },
+    previsao: {
+      label: { pt: 'MODELAGEM E PREVISÃO', en: 'MODELING & PREDICTION', es: 'MODELADO Y PREDICCIÓN' },
+      note:  { pt: 'Dado histórico transformado em estimativa defensável.',
+               en: 'Historical data turned into a defensible estimate.',
+               es: 'Dato histórico convertido en una estimación defendible.' }
+    },
+    web: {
+      label: { pt: 'WEB E SITES ESTÁTICOS', en: 'WEB & STATIC SITES', es: 'WEB Y SITIOS ESTÁTICOS' },
+      note:  { pt: 'Interface entregue sem arrastar um stack inteiro junto.',
+               en: 'Interfaces shipped without dragging a whole stack along.',
+               es: 'Interfaces entregadas sin arrastrar un stack entero.' }
+    }
+  };
+  const categoryLabel = cat => CATEGORY_LABELS[cat] ? L(CATEGORY_LABELS[cat].label) : cat;
+  const categoryNote  = cat => CATEGORY_LABELS[cat] ? L(CATEGORY_LABELS[cat].note) : '';
 
   const TAG = {
-    timeSeries:  { pt: 'Séries Temporais', en: 'Time Series',      es: 'Series Temporales' },
-    sportsData:  { pt: 'Dados Esportivos', en: 'Sports Data',      es: 'Datos Deportivos' },
-    automation:  { pt: 'Automação',        en: 'Automation',       es: 'Automatización' },
-    utils:       { pt: 'Utilitários',      en: 'Utilities',        es: 'Utilidades' },
-    staticSite:  { pt: 'Site Estático',    en: 'Static Site',      es: 'Sitio Estático' },
+    timeSeries:  { pt: 'Séries temporais', en: 'Time series',  es: 'Series temporales' },
+    sportsData:  { pt: 'Dados esportivos', en: 'Sports data',  es: 'Datos deportivos' },
+    automation:  { pt: 'Automação',        en: 'Automation',   es: 'Automatización' },
+    staticSite:  { pt: 'Site estático',    en: 'Static site',  es: 'Sitio estático' },
+    modeling:    { pt: 'Modelagem',        en: 'Modeling',     es: 'Modelado' },
   };
 
+  // problema → gargalo → solução → ganho. No máximo três tags por card:
+  // acima disso a varredura custa mais do que informa.
   const PROJECTS = [
-    { title: 'Energy-Prediction', category: 'Data Science', tags: ['Python', 'Jupyter', TAG.timeSeries], url: 'https://github.com/leonardo-beranger/Energy-Prediction', desc: {
-      pt: 'Dataset e modelagem preditiva do consumo energético horário de um supermercado em Curitiba (2024–2025), para estudos de eficiência energética e impacto climático.',
-      en: 'Dataset and predictive model for the hourly energy consumption of a supermarket in Curitiba, Brazil (2024–2025), for energy efficiency and climate impact studies.',
-      es: 'Dataset y modelo predictivo del consumo energético por hora de un supermercado en Curitiba, Brasil (2024–2025), para estudios de eficiencia energética e impacto climático.' } },
-    { title: 'Projeto-Spotfy', category: 'Data Science', tags: ['Python', 'Machine Learning', 'K-Means'], url: 'https://github.com/leonardo-beranger/Projeto-Spotfy', desc: {
-      pt: 'Clusterização de 953 músicas do Spotify com K-Means para sugerir novas playlists a um app de streaming fictício, a partir de BPM, energia e dançabilidade.',
-      en: 'K-Means clustering of 953 Spotify tracks to suggest new playlists for a fictional streaming app, based on BPM, energy and danceability.',
-      es: 'Clusterización de 953 canciones de Spotify con K-Means para sugerir nuevas playlists a una app de streaming ficticia, a partir de BPM, energía y bailabilidad.' } },
-    { title: 'Premier-League', category: 'Data Science', tags: ['Python', 'Machine Learning', TAG.sportsData], url: 'https://github.com/leonardo-beranger/Premier-League', desc: {
-      pt: 'Dados históricos da Premier League (1993/94–2024/25) e modelo de machine learning para prever o resultado das partidas.',
-      en: 'Historical Premier League data (1993/94–2024/25) and a machine learning model to predict match results.',
-      es: 'Datos históricos de la Premier League (1993/94–2024/25) y modelo de machine learning para predecir el resultado de los partidos.' } },
-    { title: 'gerenciar_workspace_power_bi', category: 'Power BI', tags: ['Power BI', 'Python', 'Streamlit', 'REST API'], url: 'https://github.com/leonardo-beranger/gerenciar_workspace_power_bi', desc: {
-      pt: 'Interface em Python (Streamlit) para administrar workspaces e reports do Power BI via Power BI REST API — listagem de workspaces, reports e datasources, status de atualização e exportação em massa para Excel.',
-      en: 'Python (Streamlit) interface to manage Power BI workspaces and reports through the Power BI REST API — listing workspaces, reports and datasources, refresh status and bulk export to Excel.',
-      es: 'Interfaz en Python (Streamlit) para administrar workspaces y reports de Power BI mediante la Power BI REST API — listado de workspaces, reports y datasources, estado de actualización y exportación masiva a Excel.' } },
-    { title: 'email_relatorio', category: 'Python', tags: ['Python', 'ETL', TAG.automation], url: 'https://github.com/leonardo-beranger/email_relatorio', desc: {
-      pt: 'Scripts em Python que extraem dados de um banco, tratam as informações e geram um relatório em PDF enviado automaticamente por e-mail.',
-      en: 'Python scripts that pull data from a database, clean it and generate a PDF report sent automatically by email.',
-      es: 'Scripts en Python que extraen datos de una base, tratan la información y generan un informe en PDF enviado automáticamente por correo.' } },
-    { title: 'envio_de_email', category: 'Python', tags: ['Python', TAG.automation], url: 'https://github.com/leonardo-beranger/envio_de_email', desc: {
-      pt: 'Função em Python para envio automático de e-mails integrada ao Google, usada como bloco de automação em outros projetos.',
-      en: 'Python function for automatic email sending integrated with Google, used as an automation building block in other projects.',
-      es: 'Función en Python para envío automático de correos integrada con Google, usada como bloque de automatización en otros proyectos.' } },
-    { title: 'ferramentas', category: 'Python', tags: ['Python', TAG.utils], url: 'https://github.com/leonardo-beranger/ferramentas', desc: {
-      pt: 'Conjunto de ferramentas básicas em Python para consolidar informações e enriquecer dados para análise.',
-      en: 'A set of basic Python tools to consolidate information and enrich data for analysis.',
-      es: 'Conjunto de herramientas básicas en Python para consolidar información y enriquecer datos para análisis.' } },
-    { title: 'catholic-day', category: 'HTML', tags: ['HTML', 'Python', TAG.staticSite], url: 'https://github.com/leonardo-beranger/catholic-day', desc: {
-      pt: 'Site estático de apologética e formação católica, gerado por um script Python enxuto (~150 linhas, só biblioteca padrão) — sem Node, sem npm, sem dependências.',
-      en: 'Static site on Catholic apologetics and formation, generated by a lean Python script (~150 lines, standard library only) — no Node, no npm, no dependencies.',
-      es: 'Sitio estático de apologética y formación católica, generado por un script Python compacto (~150 líneas, solo biblioteca estándar) — sin Node, sin npm, sin dependencias.' } },
-    { title: 'portfolio', category: 'HTML', tags: ['HTML', 'CSS', 'JavaScript'], url: 'https://github.com/leonardo-beranger/portfolio', desc: {
-      pt: 'Este site: portfólio pessoal em estética cyberpunk, construído como SPA em HTML, CSS e JavaScript puros, sem frameworks ou build step.',
-      en: 'This site: a personal portfolio with a cyberpunk look, built as a SPA in plain HTML, CSS and JavaScript, with no frameworks or build step.',
-      es: 'Este sitio: portafolio personal con estética cyberpunk, construido como SPA en HTML, CSS y JavaScript puros, sin frameworks ni build step.' } },
-    { title: 'linkedin-aux', category: 'IA', tags: ['Claude Code', 'Skill', 'Prompt Engineering', 'Markdown'], url: 'https://github.com/leonardo-beranger/linkedin-aux', desc: {
-      pt: 'Skill do Claude Code que escreve posts, cases técnicos, carrosséis e artigos de LinkedIn a partir de um banco de projetos estruturado no formato problema → gargalo → solução → ganho, com checklist de anonimização e rotina de pauta.',
-      en: 'Claude Code skill that writes LinkedIn posts, technical case studies, carousels and articles from a structured project bank in the format problem → bottleneck → solution → gain, with an anonymization checklist and a content routine.',
-      es: 'Skill de Claude Code que escribe posts, casos técnicos, carruseles y artículos de LinkedIn a partir de un banco de proyectos estructurado en el formato problema → cuello de botella → solución → ganancia, con checklist de anonimización y rutina de contenido.' } },
+    { repo: 'email_relatorio', category: 'automacao', tags: ['Python', 'ETL', TAG.automation], url: 'https://github.com/leonardo-beranger/email_relatorio',
+      title:   { pt: 'O relatório mensal que se envia sozinho', en: 'The monthly report that sends itself', es: 'El informe mensual que se envía solo' },
+      problem: { pt: 'O relatório do mês era montado à mão: puxar do banco, tratar, exportar, anexar, enviar.',
+                 en: 'The monthly report was assembled by hand: pull from the database, clean it, export, attach, send.',
+                 es: 'El informe del mes se armaba a mano: extraer de la base, tratar, exportar, adjuntar, enviar.' },
+      catch:   { pt: 'Gargalo: cada etapa dependia de alguém lembrar, e o erro só aparecia no e-mail já enviado.',
+                 en: 'Bottleneck: every step depended on someone remembering, and mistakes only surfaced after the email went out.',
+                 es: 'Cuello de botella: cada paso dependía de que alguien recordara, y el error aparecía con el correo ya enviado.' },
+      desc:    { pt: 'Python extrai do banco, trata os dados, gera o PDF e dispara o e-mail em um único fluxo agendado.',
+                 en: 'Python pulls from the database, cleans the data, generates the PDF and sends the email in one scheduled flow.',
+                 es: 'Python extrae de la base, trata los datos, genera el PDF y envía el correo en un único flujo programado.' },
+      gain:    { pt: 'Ganho: o relatório deixa de competir com o trabalho do analista.',
+                 en: 'Gain: the report stops competing with the analyst’s actual work.',
+                 es: 'Ganancia: el informe deja de competir con el trabajo del analista.' } },
+
+    { repo: 'linkedin-aux', category: 'automacao', tags: ['Claude Code', 'Skill', 'Prompt Engineering'], url: 'https://github.com/leonardo-beranger/linkedin-aux',
+      title:   { pt: 'Skill que escreve conteúdo técnico', en: 'A skill that writes technical content', es: 'Skill que escribe contenido técnico' },
+      problem: { pt: 'Escrever sobre o próprio trabalho trava mais do que fazer o trabalho.',
+                 en: 'Writing about your own work stalls harder than doing the work.',
+                 es: 'Escribir sobre el propio trabajo traba más que hacer el trabajo.' },
+      catch:   { pt: 'Gargalo: sem o gargalo do projeto explícito, todo texto gerado sai genérico.',
+                 en: 'Bottleneck: without the project’s own bottleneck stated, every generated text comes out generic.',
+                 es: 'Cuello de botella: sin el cuello de botella del proyecto explícito, todo texto sale genérico.' },
+      desc:    { pt: 'Skill do Claude Code com banco de projetos estruturado, moldes por formato e checklist de anonimização obrigatório.',
+                 en: 'A Claude Code skill with a structured project bank, a template per format, and a mandatory anonymization checklist.',
+                 es: 'Skill de Claude Code con banco de proyectos estructurado, moldes por formato y checklist de anonimización obligatorio.' },
+      gain:    { pt: 'Ganho: pauta e primeiro rascunho deixam de ser o obstáculo.',
+                 en: 'Gain: the topic and the first draft stop being the obstacle.',
+                 es: 'Ganancia: el tema y el primer borrador dejan de ser el obstáculo.' } },
+
+    { repo: 'ferramentas', category: 'automacao', tags: ['Python', 'Pandas'], url: 'https://github.com/leonardo-beranger/ferramentas',
+      title:   { pt: 'Caixa de ferramentas de tratamento', en: 'Data-prep toolbox', es: 'Caja de herramientas de tratamiento' },
+      problem: { pt: 'As mesmas rotinas de consolidar e enriquecer dados eram reescritas a cada análise.',
+                 en: 'The same routines to consolidate and enrich data were rewritten for every analysis.',
+                 es: 'Las mismas rutinas de consolidar y enriquecer datos se reescribían en cada análisis.' },
+      catch:   { pt: 'Gargalo: sem lugar comum, cada cópia divergia e dois relatórios paravam de bater.',
+                 en: 'Bottleneck: with no shared home, each copy drifted and two reports stopped agreeing.',
+                 es: 'Cuello de botella: sin un lugar común, cada copia divergía y dos informes dejaban de coincidir.' },
+      desc:    { pt: 'Conjunto de utilitários Python para consolidar informação e enriquecer a base antes da análise.',
+                 en: 'A set of Python utilities to consolidate information and enrich the dataset before analysis.',
+                 es: 'Conjunto de utilidades Python para consolidar información y enriquecer la base antes del análisis.' },
+      gain:    { pt: 'Ganho: a preparação vira etapa reproduzível em vez de improviso.',
+                 en: 'Gain: preparation becomes a reproducible step instead of improvisation.',
+                 es: 'Ganancia: la preparación se vuelve un paso reproducible en vez de improvisación.' } },
+
+    { repo: 'envio_de_email', category: 'automacao', tags: ['Python', TAG.automation], url: 'https://github.com/leonardo-beranger/envio_de_email',
+      title:   { pt: 'Bloco de envio de e-mail', en: 'Email-sending building block', es: 'Bloque de envío de correo' },
+      problem: { pt: 'Toda automação nova precisava reescrever o envio de e-mail do zero.',
+                 en: 'Every new automation had to rewrite email sending from scratch.',
+                 es: 'Cada automatización nueva reescribía el envío de correo desde cero.' },
+      catch:   { pt: 'Gargalo: a autenticação com o Google é onde script de automação costuma morrer.',
+                 en: 'Bottleneck: Google authentication is where automation scripts usually die.',
+                 es: 'Cuello de botella: la autenticación con Google es donde suelen morir los scripts.' },
+      desc:    { pt: 'Função Python isolada, integrada ao Google, importada como bloco pelos outros projetos.',
+                 en: 'An isolated Python function, integrated with Google, imported as a block by the other projects.',
+                 es: 'Función Python aislada, integrada con Google, importada como bloque por los otros proyectos.' },
+      gain:    { pt: 'Ganho: enviar e-mail deixou de ser decisão de projeto.',
+                 en: 'Gain: sending email stopped being a per-project decision.',
+                 es: 'Ganancia: enviar correo dejó de ser una decisión de proyecto.' } },
+
+    { repo: 'gerenciar_workspace_power_bi', category: 'bi', tags: ['Power BI', 'REST API', 'Streamlit'], url: 'https://github.com/leonardo-beranger/gerenciar_workspace_power_bi',
+      title:   { pt: 'Inventário de workspaces do Power BI', en: 'Power BI workspace inventory', es: 'Inventario de workspaces de Power BI' },
+      problem: { pt: 'Ninguém sabia quantos relatórios existiam, quem usava, nem quando cada um atualizou.',
+                 en: 'Nobody knew how many reports existed, who used them, or when each last refreshed.',
+                 es: 'Nadie sabía cuántos informes existían, quién los usaba, ni cuándo se actualizó cada uno.' },
+      catch:   { pt: 'Gargalo: a resposta só existia clicando workspace por workspace no portal.',
+                 en: 'Bottleneck: the answer only existed by clicking through workspace after workspace in the portal.',
+                 es: 'Cuello de botella: la respuesta solo existía haciendo clic workspace por workspace en el portal.' },
+      desc:    { pt: 'Interface Streamlit sobre a Power BI REST API: workspaces, relatórios e datasources listados, status de atualização e exportação em massa.',
+                 en: 'A Streamlit interface over the Power BI REST API: workspaces, reports and datasources listed, refresh status and bulk export.',
+                 es: 'Interfaz Streamlit sobre la Power BI REST API: workspaces, informes y datasources listados, estado de actualización y exportación masiva.' },
+      gain:    { pt: 'Ganho: inventário deixa de ser projeto e vira consulta.',
+                 en: 'Gain: the inventory stops being a project and becomes a query.',
+                 es: 'Ganancia: el inventario deja de ser un proyecto y se vuelve una consulta.' } },
+
+    { repo: 'Energy-Prediction', category: 'previsao', tags: ['Python', TAG.timeSeries, TAG.modeling], url: 'https://github.com/leonardo-beranger/Energy-Prediction',
+      title:   { pt: 'Previsão de consumo de energia', en: 'Energy consumption forecasting', es: 'Predicción de consumo de energía' },
+      problem: { pt: 'O consumo de um supermercado varia com hora, calor e operação — e a conta só chega depois.',
+                 en: 'A supermarket’s consumption varies with the hour, the heat and the operation — and the bill only arrives later.',
+                 es: 'El consumo de un supermercado varía con la hora, el calor y la operación, y la cuenta llega después.' },
+      catch:   { pt: 'Gargalo: sem série horária tratada, sazonalidade e clima ficam indistinguíveis.',
+                 en: 'Bottleneck: without a cleaned hourly series, seasonality and weather are indistinguishable.',
+                 es: 'Cuello de botella: sin serie horaria tratada, estacionalidad y clima son indistinguibles.' },
+      desc:    { pt: 'Dataset horário de 2024–2025 e modelagem preditiva para estudo de eficiência energética e impacto climático.',
+                 en: 'An hourly 2024–2025 dataset and predictive modeling for energy efficiency and climate impact study.',
+                 es: 'Dataset horario de 2024–2025 y modelado predictivo para estudio de eficiencia energética e impacto climático.' },
+      gain:    { pt: 'Ganho: base para comparar consumo esperado com consumo real.',
+                 en: 'Gain: a baseline to compare expected consumption against real consumption.',
+                 es: 'Ganancia: una base para comparar consumo esperado con consumo real.' } },
+
+    { repo: 'Premier-League', category: 'previsao', tags: ['Python', 'Machine Learning', TAG.sportsData], url: 'https://github.com/leonardo-beranger/Premier-League',
+      title:   { pt: 'Previsão de resultado de partidas', en: 'Match result prediction', es: 'Predicción de resultados de partidos' },
+      problem: { pt: 'Trinta temporadas de Premier League em dado bruto, sem nenhuma leitura preditiva.',
+                 en: 'Thirty Premier League seasons of raw data, with no predictive reading of it.',
+                 es: 'Treinta temporadas de Premier League en dato bruto, sin lectura predictiva.' },
+      catch:   { pt: 'Gargalo: histórico só vale quando vira feature — mando de campo, forma recente, confronto direto.',
+                 en: 'Bottleneck: history only counts once it becomes a feature — home advantage, recent form, head-to-head.',
+                 es: 'Cuello de botella: el histórico solo sirve cuando se vuelve feature: localía, forma reciente, historial directo.' },
+      desc:    { pt: 'Base de 1993/94 a 2024/25 e modelo de machine learning para prever o resultado das partidas.',
+                 en: 'A 1993/94–2024/25 dataset and a machine learning model to predict match results.',
+                 es: 'Base de 1993/94 a 2024/25 y modelo de machine learning para predecir el resultado de los partidos.' },
+      gain:    { pt: 'Ganho: um alvo honesto para medir modelo — futebol pune overfitting rápido.',
+                 en: 'Gain: an honest target to measure a model — football punishes overfitting fast.',
+                 es: 'Ganancia: un objetivo honesto para medir el modelo: el fútbol castiga rápido el overfitting.' } },
+
+    { repo: 'Projeto-Spotfy', category: 'previsao', tags: ['Python', 'K-Means', TAG.modeling], url: 'https://github.com/leonardo-beranger/Projeto-Spotfy',
+      title:   { pt: 'Playlists por clusterização', en: 'Playlists by clustering', es: 'Playlists por clusterización' },
+      problem: { pt: 'Como um app de streaming fictício sugere playlist sem depender de curadoria manual?',
+                 en: 'How does a fictional streaming app suggest playlists without relying on manual curation?',
+                 es: '¿Cómo sugiere playlists una app de streaming ficticia sin curaduría manual?' },
+      catch:   { pt: 'Gargalo: gênero declarado não separa as músicas do jeito que o ouvinte separa.',
+                 en: 'Bottleneck: the declared genre does not separate tracks the way a listener does.',
+                 es: 'Cuello de botella: el género declarado no separa las canciones como lo hace el oyente.' },
+      desc:    { pt: 'K-Means sobre 953 faixas usando BPM, energia e dançabilidade em vez do rótulo de gênero.',
+                 en: 'K-Means over 953 tracks using BPM, energy and danceability instead of the genre label.',
+                 es: 'K-Means sobre 953 canciones usando BPM, energía y bailabilidad en vez de la etiqueta de género.' },
+      gain:    { pt: 'Ganho: agrupamento que sai do dado, não da etiqueta.',
+                 en: 'Gain: grouping that comes from the data, not from the label.',
+                 es: 'Ganancia: agrupamiento que sale del dato, no de la etiqueta.' } },
+
+    { repo: 'catholic-day', category: 'web', tags: ['Python', 'HTML', TAG.staticSite], url: 'https://github.com/leonardo-beranger/catholic-day',
+      title:   { pt: 'Site estático sem dependência', en: 'A static site with no dependencies', es: 'Sitio estático sin dependencias' },
+      problem: { pt: 'Publicar conteúdo de formação sem carregar um stack de front-end inteiro junto.',
+                 en: 'Publishing formation content without dragging a whole front-end stack along.',
+                 es: 'Publicar contenido de formación sin cargar un stack de front-end entero.' },
+      catch:   { pt: 'Gargalo: gerador de site moderno traz Node, npm e uma manutenção que o conteúdo não pede.',
+                 en: 'Bottleneck: a modern site generator brings Node, npm and maintenance the content never asked for.',
+                 es: 'Cuello de botella: un generador moderno trae Node, npm y un mantenimiento que el contenido no pide.' },
+      desc:    { pt: 'Script Python de ~150 linhas, só biblioteca padrão, gerando o site inteiro.',
+                 en: 'A ~150-line Python script, standard library only, generating the entire site.',
+                 es: 'Script Python de ~150 líneas, solo biblioteca estándar, generando el sitio entero.' },
+      gain:    { pt: 'Ganho: o site sobrevive a anos sem atualização de pacote.',
+                 en: 'Gain: the site survives years without a package update.',
+                 es: 'Ganancia: el sitio sobrevive años sin actualización de paquetes.' } },
+
+    { repo: 'portfolio', category: 'web', tags: ['HTML', 'CSS', 'JavaScript'], url: 'https://github.com/leonardo-beranger/portfolio',
+      title:   { pt: 'Este site', en: 'This site', es: 'Este sitio' },
+      problem: { pt: 'Um portfólio precisa provar capacidade, não listar tecnologia.',
+                 en: 'A portfolio has to prove capability, not list technology.',
+                 es: 'Un portafolio tiene que probar capacidad, no listar tecnología.' },
+      catch:   { pt: 'Gargalo: o público é duplo — quem contrata e quem tem processo travado — e a mesma página serve os dois.',
+                 en: 'Bottleneck: the audience is double — people hiring and people with a stalled process — and one page serves both.',
+                 es: 'Cuello de botella: el público es doble — quien contrata y quien tiene un proceso trabado — y la misma página sirve a ambos.' },
+      desc:    { pt: 'SPA em HTML, CSS e JavaScript puros, trilíngue PT/EN/ES, sem framework e sem build step.',
+                 en: 'A SPA in plain HTML, CSS and JavaScript, trilingual PT/EN/ES, no framework and no build step.',
+                 es: 'SPA en HTML, CSS y JavaScript puros, trilingüe PT/EN/ES, sin framework ni build step.' },
+      gain:    { pt: 'Ganho: cada correção fica auditável no repositório.',
+                 en: 'Gain: every fix stays auditable in the repository.',
+                 es: 'Ganancia: cada corrección queda auditable en el repositorio.' } },
   ];
 
   const SKILLS = ['Python', 'SQL', 'Power BI', 'Tableau', 'Lean Six Sigma', 'HTML & CSS'];
@@ -498,6 +756,8 @@
       const btn = document.createElement('button');
       btn.className = 'nav-item' + (n.id === active ? ' active' : '');
       btn.textContent = L(n.label);
+      // O destino ativo era comunicado só por cor.
+      if (n.id === active) btn.setAttribute('aria-current', 'page');
       btn.onclick = () => goTo(n.id);
       nav.appendChild(btn);
     });
@@ -559,34 +819,39 @@
     container.innerHTML = '';
     categories.forEach(cat => {
       const items = list.filter(p => p.category === cat);
-      const group = document.createElement('div');
+      if (items.length === 0) return;
+
+      const group = document.createElement('section');
       group.className = 'project-group';
-      const heading = document.createElement('div');
+
+      const heading = document.createElement('h2');
       heading.className = 'project-group-title';
       heading.textContent = categoryLabel(cat);
       group.appendChild(heading);
 
+      const note = document.createElement('p');
+      note.className = 'project-group-note';
+      note.textContent = categoryNote(cat);
+      group.appendChild(note);
+
       const grid = document.createElement('div');
       grid.className = 'projects-grid';
 
-      if (items.length === 0) {
-        const empty = document.createElement('div');
-        empty.className = 'project-empty';
-        empty.textContent = t('projectEmpty');
-        grid.appendChild(empty);
-      } else {
-        items.forEach(p => {
-          const card = document.createElement('div');
-          card.className = 'project-card';
-          card.innerHTML = `
-            <div class="project-title">${p.title}</div>
-            <div class="project-desc">${L(p.desc)}</div>
-            <div class="project-tags">${p.tags.map(tag => `<span class="project-tag">${L(tag)}</span>`).join('')}</div>
-            <a class="project-link" href="${p.url}" target="_blank" rel="noopener">${t('projectLink')}</a>
-          `;
-          grid.appendChild(card);
-        });
-      }
+      items.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        card.innerHTML = `
+          <h3 class="project-title">${L(p.title)}</h3>
+          <div class="project-repo">${p.repo}</div>
+          <p class="project-problem">${L(p.problem)}</p>
+          <p class="project-catch">${L(p.catch)}</p>
+          <p class="project-desc">${L(p.desc)}</p>
+          <p class="project-gain">${L(p.gain)}</p>
+          <div class="project-tags">${p.tags.map(tag => `<span class="project-tag">${L(tag)}</span>`).join('')}</div>
+          <a class="project-link" href="${p.url}" target="_blank" rel="noopener">${t('projectLink')}</a>
+        `;
+        grid.appendChild(card);
+      });
 
       group.appendChild(grid);
       container.appendChild(group);
@@ -599,33 +864,95 @@
     CONTACTS.forEach(c => {
       const div = document.createElement('div');
       div.className = 'contact-card';
+      // O card inteiro é o alvo: antes só o texto interno era clicável.
+      const href = c.href.startsWith('mailto:') ? c.href + '?subject=' + encodeURIComponent(t('mailSubject')) : c.href;
       div.innerHTML = `
-        <div class="contact-label">${c.label}</div>
-        <div class="contact-value"><a href="${c.href}" target="${c.href.startsWith('http') ? '_blank' : '_self'}" rel="noopener">${c.value}</a></div>
+        <a href="${href}" target="${c.href.startsWith('http') ? '_blank' : '_self'}" rel="noopener">
+          <span class="contact-label">${c.label}</span>
+          <span class="contact-value">${c.value}</span>
+        </a>
       `;
       container.appendChild(div);
     });
   }
 
+  function renderCtaClose() {
+    const mail = CONTACTS.find(c => c.href.startsWith('mailto:'));
+    const linkedin = CONTACTS.find(c => c.href.includes('linkedin'));
+    document.querySelectorAll('[data-cta-close]').forEach(box => {
+      box.innerHTML = `
+        <div class="cta-close-inner">
+          <div>
+            <p class="cta-close-title">${t('ctaCloseTitle')}</p>
+            <p class="cta-close-sub">${t('ctaCloseSub')}</p>
+          </div>
+          <div class="cta-close-actions">
+            <a class="btn-primary" href="${mail.href}?subject=${encodeURIComponent(t('mailSubject'))}">${t('ctaCloseMail')}</a>
+            <a class="btn-ghost" href="${linkedin.href}" target="_blank" rel="noopener">${t('ctaCloseLinkedin')}</a>
+          </div>
+        </div>
+      `;
+    });
+  }
+
   const BG_GIF_PAGES = ['home', 'contact'];
+  let bgGifLoaded = false;
+
+  // O GIF de fundo pesa mais de 10 MB: só entra depois do first paint e só nas
+  // páginas que o usam. Declarar em CSS fazia a busca acontecer em toda visita.
+  function ensureBgGif() {
+    if (bgGifLoaded) return;
+    bgGifLoaded = true;
+    const el = document.getElementById('bg-gif');
+    el.style.backgroundImage = "url('Eu_estudio Ghibli cyber punk.gif')";
+  }
+
+  const prefersReducedMotion = () =>
+    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let currentPage = 'home';
 
-  function syncUrl() {
-    // Mantém idioma e página na URL para que o link seja compartilhável (ex.: ?lang=en#projects).
+  function urlFor(page) {
     const search = LANG === DEFAULT_LANG ? '' : '?lang=' + LANG;
-    // replaceState falha em contexto sem origem (file://, preview sandboxed); a página segue funcionando.
-    try { history.replaceState(null, '', location.pathname + search + '#' + currentPage); } catch (e) { /* sem origem */ }
+    return location.pathname + search + '#' + page;
   }
 
-  function goTo(page) {
+  function syncUrl() {
+    // Idioma e página na URL para o link ser compartilhável (ex.: ?lang=en#projects).
+    // replaceState falha em contexto sem origem (file://, preview sandboxed).
+    try { history.replaceState(null, '', urlFor(currentPage)); } catch (e) { /* sem origem */ }
+  }
+
+  function goTo(page, fromHistory) {
+    if (!PAGES.includes(page)) page = 'home';
     currentPage = page;
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.dataset.page === page));
     renderNav(page);
-    document.getElementById('bg-gif').classList.toggle('visible', BG_GIF_PAGES.includes(page));
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    syncUrl();
+
+    const usesGif = BG_GIF_PAGES.includes(page);
+    if (usesGif && document.readyState === 'complete') ensureBgGif();
+    document.getElementById('bg-gif').classList.toggle('visible', usesGif);
+
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+
+    // Sem isso o leitor de tela fica na página anterior: a troca é silenciosa.
+    const active = document.querySelector('.page.active');
+    if (active && !fromHistory) {
+      active.setAttribute('tabindex', '-1');
+      active.focus({ preventScroll: true });
+    }
+
+    // pushState cria histórico de verdade; antes, um Back saía do site.
+    if (fromHistory) return;
+    try {
+      if (location.hash.slice(1) === page) history.replaceState(null, '', urlFor(page));
+      else history.pushState(null, '', urlFor(page));
+    } catch (e) { /* sem origem */ }
   }
+
+  window.addEventListener('popstate', () => {
+    goTo((location.hash || '#home').slice(1), true);
+  });
 
   // --- idioma ---------------------------------------------------------------
 
@@ -662,6 +989,8 @@
     renderPhilosophy();
     renderProficiency();
     renderContacts();
+    renderCtaClose();
+    document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
   }
 
   function setLang(code, skipUrl) {
@@ -691,7 +1020,14 @@
   renderAll();
 
   const initial = (location.hash || '#home').slice(1);
-  goTo(NAV.some(n => n.id === initial) ? initial : 'home');
+  goTo(PAGES.includes(initial) ? initial : 'home', true);
+  syncUrl();
+
+  // O GIF entra depois que a página já pintou, nunca competindo com o conteúdo.
+  if (BG_GIF_PAGES.includes(currentPage)) {
+    if (document.readyState === 'complete') ensureBgGif();
+    else window.addEventListener('load', () => { if (BG_GIF_PAGES.includes(currentPage)) ensureBgGif(); });
+  }
 </script>
 
 </body>
