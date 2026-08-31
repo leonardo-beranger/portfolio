@@ -133,6 +133,9 @@
   .rule{width:80px;height:3px;background:linear-gradient(90deg,var(--pink),var(--teal));margin-bottom:40px;}
   .about-text{font-size:var(--t-lead);line-height:1.7;color:var(--text-2);max-width:68ch;}
 
+  /* Prova antes de adjetivo: a Home mostra dois projetos antes de listar ferramentas. */
+  .proof-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-bottom:40px;}
+  .stack-note{font-size:var(--t-label);color:var(--text-4);margin:0 0 14px;}
   .stack{display:flex;flex-wrap:wrap;gap:14px;}
   .chip{font-family:var(--mono);font-size:var(--t-body);padding:10px 20px;border:1px solid rgba(224,49,235,0.4);color:var(--text);background:rgba(224,49,235,0.06);}
 
@@ -202,7 +205,9 @@
     /* display:contents dissolve o agrupador para o header decidir as duas linhas. */
     .header-right{display:contents;}
     nav{order:3;flex:1 1 100%;width:100%;gap:4px;}
-    .nav-item{flex:1 1 0;min-width:0;padding:10px 4px;font-size:11px;letter-spacing:0.5px;text-align:center;}
+    /* Medido contra o espanhol, que é o conjunto de rótulos mais longo:
+       EXPERIÊNCIA/EXPERIENCIA precisam caber em ~80px sem estourar a borda. */
+    .nav-item{flex:1 1 0;min-width:0;padding:10px 2px;font-size:10px;letter-spacing:0;text-align:center;}
     .btn-contact{order:2;margin-left:auto;padding:9px 14px;font-size:11px;}
     .lang-switch{order:2;}
     .lang-item{padding:9px 8px;font-size:11px;}
@@ -258,7 +263,7 @@
       <div class="tagline"><span style="color:var(--teal);">&gt;</span>&nbsp;<span data-i18n="tagline">transformando dados em insights estratégicos</span><span class="caret"></span></div>
       <div style="margin-top:10px;font-size:var(--t-label);color:var(--text-4);" data-i18n="siteBy">// este site foi criado por mim, Leonardo Beranger Gomes</div>
       <div class="cta-row">
-        <button class="btn-primary" onclick="goTo('experience')" data-i18n="ctaExperience">VER EXPERIÊNCIA</button>
+        <button class="btn-primary" onclick="goTo('projects')" data-i18n="ctaProjects">VER PROJETOS</button>
         <button class="btn-ghost" onclick="goTo('contact')" data-i18n="ctaContact">CONTATO</button>
       </div>
     </section>
@@ -270,7 +275,12 @@
     </section>
 
     <section class="block">
-      <h2 class="sec-title" data-i18n="secStack">02 // STACK</h2>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:24px;gap:16px;flex-wrap:wrap;">
+        <h2 class="sec-title" style="margin-bottom:0;" data-i18n="secProof">02 // PROVA</h2>
+        <button class="link-more" style="margin-top:0;" onclick="goTo('projects')" data-i18n="seeAllProjects">ver os dez →</button>
+      </div>
+      <div class="proof-grid" id="proof-home"></div>
+      <p class="stack-note" data-i18n="stackNote">As ferramentas por trás disso:</p>
       <div class="stack" id="stack-home"></div>
     </section>
 
@@ -382,6 +392,10 @@
     tagline:           { pt: 'transformando dados em insights estratégicos', en: 'turning data into strategic insight', es: 'convirtiendo datos en decisiones estratégicas' },
     siteBy:            { pt: '// este site foi criado por mim, Leonardo Beranger Gomes', en: '// this site was built by me, Leonardo Beranger Gomes', es: '// este sitio fue creado por mí, Leonardo Beranger Gomes' },
     ctaExperience:     { pt: 'VER EXPERIÊNCIA', en: 'VIEW EXPERIENCE', es: 'VER EXPERIENCIA' },
+    ctaProjects:       { pt: 'VER PROJETOS', en: 'VIEW PROJECTS', es: 'VER PROYECTOS' },
+    secProof:          { pt: '02 // PROVA', en: '02 // PROOF', es: '02 // PRUEBA' },
+    seeAllProjects:    { pt: 'ver os dez →', en: 'see all ten →', es: 'ver los diez →' },
+    stackNote:         { pt: 'As ferramentas por trás disso:', en: 'The tools behind it:', es: 'Las herramientas detrás de esto:' },
     ctaContact:        { pt: 'CONTATO', en: 'CONTACT', es: 'CONTACTO' },
 
     secAbout:          { pt: '01 // SOBRE', en: '01 // ABOUT', es: '01 // SOBRE MÍ' },
@@ -876,6 +890,30 @@
     });
   }
 
+  // Os dois projetos que melhor servem aos dois públicos: um resolve o relatório
+  // manual, o outro resolve o "ninguém sabe quantos relatórios existem".
+  const HOME_PROOF = ['email_relatorio', 'gerenciar_workspace_power_bi'];
+
+  function renderHomeProof() {
+    const box = document.getElementById('proof-home');
+    box.innerHTML = '';
+    HOME_PROOF.forEach(repo => {
+      const p = PROJECTS.find(x => x.repo === repo);
+      if (!p) return;
+      const card = document.createElement('article');
+      card.className = 'project-card';
+      card.innerHTML = `
+        <h3 class="project-title">${L(p.title)}</h3>
+        <div class="project-repo">${p.repo}</div>
+        <p class="project-problem">${L(p.problem)}</p>
+        <p class="project-gain">${L(p.gain)}</p>
+        <a class="project-link" href="${p.url}" target="_blank" rel="noopener"
+           aria-label="${L(p.title)} — ${t('projectLink').replace(' →','')}">${t('projectLink')}</a>
+      `;
+      box.appendChild(card);
+    });
+  }
+
   function renderCtaClose() {
     const mail = CONTACTS.find(c => c.href.startsWith('mailto:'));
     const linkedin = CONTACTS.find(c => c.href.includes('linkedin'));
@@ -923,7 +961,7 @@
     try { history.replaceState(null, '', urlFor(currentPage)); } catch (e) { /* sem origem */ }
   }
 
-  function goTo(page, fromHistory) {
+  function goTo(page, fromHistory, skipFocus) {
     if (!PAGES.includes(page)) page = 'home';
     currentPage = page;
     document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.dataset.page === page));
@@ -936,8 +974,10 @@
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
 
     // Sem isso o leitor de tela fica na página anterior: a troca é silenciosa.
+    // Vale também para o Back — o salto de rolagem que motivou pular esse ramo
+    // já está coberto por preventScroll.
     const active = document.querySelector('.page.active');
-    if (active && !fromHistory) {
+    if (active && !skipFocus) {
       active.setAttribute('tabindex', '-1');
       active.focus({ preventScroll: true });
     }
@@ -951,7 +991,20 @@
   }
 
   window.addEventListener('popstate', () => {
-    goTo((location.hash || '#home').slice(1), true);
+    const target = (location.hash || '#home').slice(1);
+    // #main é o alvo do skip link, não uma página: sem esta guarda o roteador
+    // coagia para 'home' e engolia o salto.
+    if (!PAGES.includes(target)) return;
+    goTo(target, true);
+  });
+
+  // O skip link precisa mover o foco na mão: <main> não é focável por padrão.
+  document.querySelector('.skip-link').addEventListener('click', e => {
+    e.preventDefault();
+    const main = document.getElementById('main');
+    main.setAttribute('tabindex', '-1');
+    main.focus();
+    main.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
   });
 
   // --- idioma ---------------------------------------------------------------
@@ -981,6 +1034,7 @@
     applyStaticText();
     renderLangSwitch();
     renderNav(currentPage);
+    renderHomeProof();
     renderChips(document.getElementById('stack-home'), SKILLS);
     renderTimeline(document.getElementById('timeline-home'), JOBS.slice(0, 3));
     renderTimeline(document.getElementById('timeline-full'), JOBS);
@@ -1020,7 +1074,8 @@
   renderAll();
 
   const initial = (location.hash || '#home').slice(1);
-  goTo(PAGES.includes(initial) ? initial : 'home', true);
+  // Na carga inicial o foco fica onde está: roubá-lo puliria o próprio skip link.
+  goTo(PAGES.includes(initial) ? initial : 'home', true, true);
   syncUrl();
 
   // O GIF entra depois que a página já pintou, nunca competindo com o conteúdo.
